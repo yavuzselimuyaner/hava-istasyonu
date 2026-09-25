@@ -1,0 +1,17 @@
+menu "Hava Istasyonu"
+    config WIFI_SSID
+        string "Wi-Fi SSID"
+        default ""
+    config WIFI_PASSWORD
+        string "Wi-Fi sifre"
+        default ""
+    config LATITUDE
+        string "Enlem"
+        default "41.2867"
+    config LONGITUDE
+        string "Boylam"
+        default "36.33"
+    config REFRESH_SECONDS
+        int "Guncelleme araligi (sn)"
+        default 600
+endmenu

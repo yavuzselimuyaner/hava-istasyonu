@@ -1,0 +1,28 @@
+# derleme ve ortam
+firmware/build/
+firmware/build_wokwi/
+firmware/managed_components/
+pcb/.venv/
+# indirilen araclar (yeniden indirilir, bkz. README)
+pcb/tools/
+# Wi-Fi bilgisi icerebilen, uretilen ayarlar
+firmware/sdkconfig
+firmware/sdkconfig.old
+firmware/sdkconfig.wokwi
+firmware/sdkconfig.wokwi.old
+# uretilen ara dosyalar
+*.exe
+*.ppm
+*.dsn
+*.ses
+*.kicad_prl
+*.erc
+*.log
+gen_netlist_sklib.py
+skidl_REPL.*
+_probe.py
+__pycache__/
+*.pyc
+docs/build*.log
+*.lck
+~*
