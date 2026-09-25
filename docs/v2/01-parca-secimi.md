@@ -1,5 +1,8 @@
 # v1 Adım 1 — Parça Seçimi (Agent: parça seçici)
 
+> **Not:** Bu belge eski (v1) tasarım için yazıldı: cihaz ekranlıydı ve internetten veri çekiyordu. **Ekran, pin planı ve "internetten çekme" kısımları ESKİDİR.** MCU/sensör/regülatör seçimi ve datasheet bulguları v2 için de GEÇERLİDİR. Güncel gereksinim: `00-gereksinim.md`.
+
+
 Girdi: yalnızca 00-gereksinim.md. Kullanıcının elindeki donanım (T-Display, ESP32-S3) bilerek DİKKATE ALINMADI.
 Kısıt notu: Ağ erişimi olmadan yazıldı; JLCPCB stok/fiyat ve datasheet değerleri DOĞRULANMADI. Bunlar denetçi adımının işidir (aşağıda işaretli).
 

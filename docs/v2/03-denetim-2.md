@@ -1,5 +1,8 @@
 # v1 Adım 6 — İkinci datasheet denetimi (Agent: denetçi)
 
+> **Not:** Bu belge eski (v1) tasarım için yazıldı: cihaz ekranlıydı ve internetten veri çekiyordu. **Ekran, pin planı ve "internetten çekme" kısımları ESKİDİR.** MCU/sensör/regülatör seçimi ve datasheet bulguları v2 için de GEÇERLİDİR. Güncel gereksinim: `00-gereksinim.md`.
+
+
 Yöntem: Datasheet PDF'leri araç tarafından diske kaydedildi ve `pdftotext` ile YEREL okundu. Web aracının özeti tek başına yeterli çıkmadı (aşağıdaki hata bölümüne bak).
 Kaynaklar: ESP32-C3 Series Datasheet v2.4 (Espressif), BME280 Data sheet rev 1.23 (Bosch, BST-BME280-DS001-23), AP2112 DS39724 Rev 2-2 (Diodes), USBLC6-2 (ST, arama özeti).
 

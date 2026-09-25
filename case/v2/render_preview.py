@@ -69,16 +69,3 @@ def render(parts, fname, az=35, el=32, size=(1500, 1050), lid_lift=0.0, screen=N
         mask = Image.new("L", size, 0); ImageDraw.Draw(mask).polygon(dst, fill=255)
         img = Image.composite(warped, img, mask)
     img.save(os.path.join(HERE, fname)); print("yazildi", fname, len(T), "ucgen")
-
-BASE = (220, 220, 225); LIDC = (95, 115, 150); BRD = (30, 130, 70)
-if __name__ == "__main__":
-    import sys
-    scr = None
-    sp = os.path.join(HERE, "..", "firmware", "pc_demo", "screen.png")
-    if os.path.exists(sp): scr = Image.open(sp)
-    render([("base", BASE, 0), ("board_with_parts", BRD, 0), ("lid", LIDC, 0)], "kutu_kapali.png")
-    render([("base", BASE, 0), ("board_with_parts", BRD, 0), ("lid", LIDC, 30)], "kutu_acik.png", az=30, el=38)
-    render([("base", BASE, 0), ("board_with_parts", BRD, 0)], "kutu_ustten.png", az=0, el=89)
-    if scr is not None:
-        render([("base", BASE, 0), ("board_with_parts", BRD, 0), ("lid", LIDC, 0)], "gosterim_iso.png", az=25, el=48, screen=scr)
-        render([("base", BASE, 0), ("board_with_parts", BRD, 0), ("lid", LIDC, 0)], "gosterim_ustten.png", az=0, el=89.5, screen=scr, size=(1100, 1300))

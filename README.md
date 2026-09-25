@@ -1,78 +1,63 @@
-# Hava İstasyonu (ESP32-C3) — tasarım ve kod
+# Hava İstasyonu — dıştan ölçüp internete yayınlayan sensör düğümü
 
-> **Güncel hedef (v2):** dışarıdaki sensörle ölçüp veriyi internete yayınlayan, tarayıcıdan izlenen sensör düğümü. `pcb/v2`, `firmware_v2`, `case/v2`, `web`. **v1** (internetten veri çeken sürüm) yanlış yönde yapılmıştı, referans olarak duruyor. Ayrıntı: `docs/SUREC-NOTLARI.md`.
+Dışarıdaki bir sensör sıcaklık, nem ve basıncı ölçer; cihaz Wi-Fi ile MQTT üzerinden yayınlar; bir tarayıcı sayfası değerleri gösterir. Kart, kutu, firmware ve web sayfası büyük ölçüde LLM ile üretildi. **Şu an tasarım ve simülasyon aşamasında; gerçek donanımda henüz denenmedi.**
 
-**v1 açıklaması:** İnternetten hava durumunu çeken (Open-Meteo), kart üstündeki BME280 ile oda sıcaklık/nem/basıncını ölçen ve ikisini bir ekranda gösteren kart. Tasarım ve kod büyük ölçüde LLM ile üretildi. **Şu an yalnızca tasarım ve kod aşamasında; kart üretilmedi.**
+Önce oku: `docs/SUREC-NOTLARI.md` (süreç ve kavramlar) · `docs/YAPILACAKLAR.md` (Yavuz'un yapacakları) · `docs/calisma-gunlugu.md` (adım adım kayıt, hatalar ve düzeltmeler).
 
-Kararların, hataların ve düzeltmelerin tam kaydı: `docs/calisma-gunlugu.md`.
-
-## Klasörler
-| Yol | İçerik |
+## Parçalar
+| Klasör | İçerik |
 |---|---|
-| `docs/SUREC-NOTLARI.md` | **Süreci baştan sona anlatan notlar** (önce bunu oku) |
-| `docs/v1/` | Güncel tasarım: `00-gereksinim.md` (girdi), `01-parca-secimi.md`, `02-denetim.md` (datasheet denetimi + pin planı) |
-| `docs/tasarim.md` | ESKİ v0 (ESP32-S3) özeti, yalnızca karşılaştırma için |
-| `pcb/v1/` | Güncel kart: `gen_netlist.py` (SKiDL) → `build_board.py` (pcbnew) → `route.py` (Freerouting) |
-| `pcb/` (kök) | ESKİ v0 kartı (ESP32-S3), karşılaştırma için |
-| `pcb/v2/main`, `pcb/v2/sensor` | **v2 kartlar:** ana kart (32x41) ve uzak sensör kartı (14x16). Aynı betik zinciri |
-| `firmware_v2/` | **v2 firmware:** ölç ve MQTT ile yayınla (BME280 veya DHT22) |
-| `web/index.html` | **Tarayıcı sayfası** (tek dosya, MQTT.js) |
-| `case/v2/` | **v2 kutu:** ana kutu ve radyasyon siperi (FreeCAD), `check_fit_v2.py` çakışma kontrolü |
-| `case/` | Kutu (FreeCAD betiği): `dump_board.py` → `make_case.py` → `check_fit.py`; önizlemeler `kutu_*.png` |
-| `firmware/` | ESP-IDF projesi (ESP32-C3): Wi-Fi + Open-Meteo, BME280 sürücüsü, ST7789 ekran |
-| `firmware/pc_demo/` | **ESP32 olmadan çalışan PC demosu**: gerçek Open-Meteo verisi + firmware'in gerçek ekran/sensör kodu → `screen.png` |
-| `firmware/test/host/` | Donanımsız testler: ekran çizimi (`render.c`) ve BME280 formülleri (`bme_test.c`) |
+| `pcb/v2/main` | Ana kart, 32x41 mm: ESP32-C3-WROOM-02, USB-C, AP2112K regülatör, reset/boot, LED, dik açılı 4 pinli sensör konnektörü, 2 montaj deliği |
+| `pcb/v2/sensor` | Sensör kartı, 14x16 mm: BME280, 2x100 nF, aynı konnektör, 2 montaj deliği. Kabloyla uzakta durur |
+| `case/v2` | Ana kutu (FreeCAD) ve radyasyon siperi, parçalı 3D kart modelleriyle çakışma kontrolü (`check_fit_v2.py`) |
+| `firmware_v2` | ESP-IDF: ölç ve MQTT (wss, 443) ile yayınla; sensör BME280 (ESP32-C3) ya da DHT22 (T-Display-S3 prototipi) |
+| `web/index.html` | Tek dosyalık tarayıcı sayfası (MQTT.js) |
+| `docs/v2` | Gereksinim, parça seçimi ve datasheet denetimleri |
 
-## Durum (2026-09-25)
+Konnektör sırası (iki kartta aynı): 1=3V3, 2=SDA/DATA, 3=GND, 4=SCL. İlk üç pin DHT22 modülünün (VCC, DATA, GND) sırasına denk gelir.
+
+## Durum
 | Alan | Durum | Kanıt |
 |---|---|---|
-| Şematik | ERC 0 hata | `pcb/v1/gen_netlist.py` çıktısı |
-| Kart (50x56 mm, 2 katman) | DRC 0 ihlal, 0 bağlanmamış pad | `pcb/v1/drc_routed.rpt`, `routed_top.png` |
-| Firmware derleme | ESP-IDF v6.0.2, hatasız | `docs/build.log` |
-| Wi-Fi + HTTPS + JSON | Wokwi'de çalıştı (gerçek Samsun verisi geldi) | günlük adım 18 |
-| BME280 formülleri | Bosch örneği ve referans formülle doğrulandı | `firmware/test/host/bme_test.c` |
-| Ekran çizimi | Bilgisayarda önizleme doğrulandı | `firmware/test/host/preview.png` |
-| Kutu (55,3x68,6x18 mm) | Parçalı 3D kart modeli ile çakışma 0 | `case/README.md`, `case/gosterim_iso.png` |
-| v2 firmware uçtan uca (Wokwi) | ESP32-S3 + sanal DHT22 → Wi-Fi → MQTT → `web/index.html` gösterdi | günlük adım 27 |
-| v2 BME280 sürücüsü | Sanal sensör testi geçti (`firmware_v2/test/bme280_mock_test.c`) | günlük adım 27 |
-| ESP32'siz PC demosu | Gerçek dış hava + firmware kodu ile ekran görüntüsü | `firmware/pc_demo/pc_demo.py` |
+| Ana kart, sensör kartı | ERC 0 hata, DRC 0 ihlal, 0 bağlanmamış pad | `pcb/v2/*/drc_routed.rpt`, `routed_top.png` |
+| Kutu ve siper | Parçalı 3D kart modeliyle çakışma 0; negatif kontrol de çalışıyor | `case/v2/check_fit_v2.py`, `case/v2/sistem_gorunumu.png` |
+| Firmware derleme | ESP32-C3 (BME280), ESP32-S3 (DHT22) ve Wokwi hedefleri derleniyor | `docs/calisma-gunlugu.md` adım 26-27 |
+| Uçtan uca (simülasyon) | Wokwi: ESP32-S3 + sanal DHT22 → Wi-Fi → MQTT → `web/index.html` aynı değeri gösterdi | adım 27 |
+| BME280 sürücüsü | Sanal sensör testi + Bosch referans formül testi geçti | `firmware_v2/test/` |
+| DHT22 kod çözme | Datasheet örnekleriyle test geçti | `firmware_v2/test/dht22_test.c` |
 
 ## Doğrulanmadı (donanım veya insan gerekiyor)
-- Parça ve pin bilgisinin datasheet'e karşı **insan kontrolü** (Yavuz yapacak).
-- Ekranın gerçek renk/konumu (`LCD_INVERT`, `LCD_Y_GAP` ayarları tahmin).
-- BME280'in gerçek I2C okuması, gerçek sıcaklık doğruluğu.
-- Gerçek kartta TLS el sıkışma süresi (Wokwi'de ~5 sn sürdü).
-- Anten performansı, USB izleri modül altından geçiyor (bilinen risk).
-- Hocanın "delikler bir optimizasyon problemi" sözünün tam anlamı (via / montaj deliği / delme sırası) henüz netleşmedi.
+- Parça ve pin bilgisinin bir insan tarafından datasheet ile kontrolü (`docs/YAPILACAKLAR.md`).
+- BME280'in gerçek I2C okuması, gerçek DHT22'nin zamanlama toleransı.
+- T-Display-S3'te DHT22 için GPIO10 (varsayım).
+- Siperin yağmur koruması sınırlı; anten çevresindeki plastiğin etkisi ölçülmedi.
+- Ana kartta USB izleri modül gövdesinin altından geçiyor (bilinen risk).
+- Hocanın "delikler bir optimizasyon problemi" sözünün tam anlamı.
 
-## Sıfırdan yeniden üretme (Windows)
-Gerekenler: KiCad 10 (`C:\Program Files\KiCad\10.0`), Java 21, ESP-IDF v6.0.2, Python. Freerouting **v2.1.0** (Java 21 ile çalışan son sürüm) `pcb/tools/` içinde olmalı.
+## Yeniden üretme (Windows)
+Gerekenler: KiCad 10 (`C:\Program Files\KiCad\10.0`), FreeCAD 1.1, Java 21, ESP-IDF v6.0.2, Python (SKiDL için `pcb/.venv`). Freerouting **v2.1.0** (Java 21 ile çalışan sürüm) `pcb/tools/` içinde olmalı (indirilmez, repo'da yok).
 
-Kart (`pcb/v1` içinde; SKiDL için `pcb/.venv` sanal ortamı):
+Kartlar (`pcb/v2/main` veya `pcb/v2/sensor` içinde):
 ```
-..\.venv\Scripts\python.exe gen_netlist.py
+..\..\.venv\Scripts\python.exe gen_netlist.py
 "C:\Program Files\KiCad\10.0\bin\python.exe" build_board.py
 "C:\Program Files\KiCad\10.0\bin\python.exe" route.py
 ```
-Not: Freerouting deterministik değil, her çalıştırmada biraz farklı iz/via sayısı çıkar. Denemeden önce çalışan `hava_routed.kicad_pcb` dosyasının kopyasını al.
+Freerouting deterministik değildir; sonuç her seferinde biraz farklı çıkar. Denemeden önce çalışan `hava_routed.kicad_pcb` dosyasını Git'e kaydet.
 
-Firmware (`firmware/` içinde, ESP-IDF PowerShell'inde):
-```
-idf.py build                  # gerçek kart için
-idf.py -B build_wokwi -D "SDKCONFIG=sdkconfig.wokwi" -D "SDKCONFIG_DEFAULTS=sdkconfig.defaults;sdkconfig.wokwi.defaults" build   # Wokwi için
-```
-Wi-Fi bilgileri: `idf.py menuconfig` → "Hava Istasyonu". Wokwi'de `wokwi.toml` + `diagram.json` kullanılır (Wokwi'de BME280/ST7789 yok).
+Kutu ve siper (`case/v2` içinde): sırasıyla `dump_board.py` (KiCad python), `make_main_case.py`, `make_shield.py`, `kicad-cli pcb export step ...`, `check_fit_v2.py` (hepsi `freecadcmd` ile), `render_v2.py`. Komutlar betiklerin başındaki açıklamalarda.
 
-PC demosu (ESP32 gerekmez; Python + gcc + Pillow):
+Firmware (`firmware_v2` içinde, ESP-IDF PowerShell'inde):
 ```
-cd firmware/pc_demo && python pc_demo.py          # tek sefer;  --loop 60 ile 60 sn'de bir yeniler
+idf.py -B build_c3 -D "SDKCONFIG=sdkconfig.c3" -D "IDF_TARGET=esp32c3" build
+idf.py -B build_s3 -D "SDKCONFIG=sdkconfig.s3" -D "IDF_TARGET=esp32s3" build
+idf.py -B build_wokwi -D "SDKCONFIG=sdkconfig.wokwi" -D "IDF_TARGET=esp32s3" -D "SDKCONFIG_DEFAULTS=sdkconfig.defaults;sdkconfig.defaults.esp32s3;sdkconfig.wokwi.defaults" build
 ```
+Wi-Fi bilgileri: `idf.py menuconfig` → "Hava Sensor Dugumu" (bilgiler Git'e girmez). Wokwi için `firmware_v2` klasörünü VS Code'da aç, "Wokwi: Start Simulator".
 
-Host testleri (`firmware/test/host` içinde, gcc):
-```
-gcc -DHOST_TEST -I../../main -o render.exe render.c && ./render.exe
-gcc -o bme_test.exe bme_test.c -lm && ./bme_test.exe
-```
+Web: `web/index.html`'i tarayıcıda aç (MQTT.js CDN'den yüklenir). Yerel sunucu ile: `cd web && python -m http.server`.
 
-## Pin planı (v1, `firmware/main/pins.h`)
-I2C SDA/SCL: IO4/IO5 · LCD SCK/MOSI/DC/CS/RST/BL: IO6/IO7/IO10/IO3/IO1/IO0 · LED: IO20 · Buton: IO21 · BOOT: IO9 · USB: IO18/IO19. IO2, IO8 bilerek boş (strapping).
+Testler (`firmware_v2/test`, gcc): `gcc -Wall -Imock -o bme280_mock_test bme280_mock_test.c -lm`, `gcc -o dht22_test dht22_test.c`, `gcc -o bme_test bme_test.c -lm`.
+
+## Geçmiş
+Eski v0 (ESP32-S3) ve v1 (internetten veri çeken, ekranlı) sürümleri yanlış yönde yapıldığı için depodan kaldırıldı; Git geçmişinde `fbf8f51` kaydında duruyor. Ayrıntı: `docs/calisma-gunlugu.md` adım 25.

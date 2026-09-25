@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
-#include "../../main/bme280_comp.c"
+#include "../main/bme280_comp.c"
 
 static const bme280_calib_t C = {
     .T1 = 27504, .T2 = 26435, .T3 = -1000,

@@ -1,4 +1,0 @@
-[wokwi]
-version = 1
-firmware = 'build_wokwi/flasher_args.json'
-elf = 'build_wokwi/hava_istasyonu.elf'

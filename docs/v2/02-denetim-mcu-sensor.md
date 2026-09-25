@@ -1,5 +1,8 @@
 # v1 Adım 2 — Denetim (Agent: denetçi)
 
+> **Not:** Bu belge eski (v1) tasarım için yazıldı: cihaz ekranlıydı ve internetten veri çekiyordu. **Ekran, pin planı ve "internetten çekme" kısımları ESKİDİR.** MCU/sensör/regülatör seçimi ve datasheet bulguları v2 için de GEÇERLİDİR. Güncel gereksinim: `00-gereksinim.md`.
+
+
 Kaynaklar: Espressif ESP32-C3-WROOM-02 datasheet (documentation.espressif.com), Bosch BME280 datasheet rev 1.24, Diodes AP2112 datasheet DS39724, JLCPCB parça sayfaları (arama sonuçları). Sonuçlar web aramasının özetlerine dayanır; kritik sayılar tasarım kilitlenmeden önce PDF'den elle teyit edilmelidir.
 
 ## Doğrulananlar
