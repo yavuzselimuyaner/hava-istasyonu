@@ -83,12 +83,15 @@ PLACE = {
     "SW3": (5.0, 48.0, 0),
     "R7": (40.0, 33.0, 0),
     "D1": (44.0, 33.0, 0),
+    "R8": (37.0, 28.0, 0),      # IO2 pull-up
+    "R9": (13.0, 22.0, 0),      # IO8 pull-up
+    "C7": (39.0, 47.0, 0),      # BME280 ikinci 100 nF
     "J2": (46.0, 12.0, 0),      # ekran header'ı (dikey 1x8)
 }
 EXPECT = {"U1": "ESP32-C3", "U4": "USBLC6", "J1": "USB", "U2": "AP2112", "U3": "BME280", "J2": "Conn",
           "R1": "5.1k", "R2": "5.1k", "R3": "10k", "R4": "10k", "R5": "4.7k",
           "R6": "4.7k", "R7": "1k", "C1": "10uF", "C2": "10uF", "C3": "10uF",
-          "C4": "100nF", "C5": "1uF", "C6": "100nF", "D1": "LED", "SW1": "SW",
+          "C4": "100nF", "C5": "1uF", "C6": "100nF", "C7": "100nF", "R8": "10k", "R9": "10k", "D1": "LED", "SW1": "SW",
           "SW2": "SW", "SW3": "SW"}
 for ref, key in EXPECT.items():
     assert key in comps[ref]["value"] or key in comps[ref]["footprint"], (ref, comps[ref])

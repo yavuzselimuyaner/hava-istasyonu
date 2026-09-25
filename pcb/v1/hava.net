@@ -2,7 +2,7 @@
   (version "D")
   (design
     (source "gen_netlist.py")
-    (date "09/25/2026 06:03 PM")
+    (date "09/25/2026 08:26 PM")
     (tool "SKiDL (2.3.0)")
     (sheet
       (number 1)
@@ -187,6 +187,30 @@
       (component_classes)
       (tstamps "a6fd326a-61cc-55ba-9b64-3e8df39c0c42"))
     (comp
+      (ref "C7")
+      (value "100nF")
+      (description "Unpolarized capacitor")
+      (footprint "Capacitor_SMD:C_0402_1005Metric")
+      (fields
+        (field
+          (name "Description") "Unpolarized capacitor")
+        (field
+          (name "Footprint") "Capacitor_SMD:C_0402_1005Metric")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "C7")
+        (field
+          (name "SKiDL Line") "gen_netlist.py:21"))
+      (libsource
+        (lib "Device")
+        (part "C"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "16338a68-8eed-55bf-a491-963475c6f7f3"))
+    (comp
       (ref "D1")
       (value "LED")
       (description "Light emitting diode")
@@ -201,7 +225,7 @@
         (field
           (name "SKiDL Tag") "D1")
         (field
-          (name "SKiDL Line") "gen_netlist.py:121"))
+          (name "SKiDL Line") "gen_netlist.py:126"))
       (libsource
         (lib "Device")
         (part "LED"))
@@ -249,7 +273,7 @@
         (field
           (name "SKiDL Tag") "J2")
         (field
-          (name "SKiDL Line") "gen_netlist.py:115"))
+          (name "SKiDL Line") "gen_netlist.py:120"))
       (libsource
         (lib "Connector_Generic")
         (part "Conn_01x08"))
@@ -427,6 +451,54 @@
       (component_classes)
       (tstamps "45fbc468-780f-56f4-b6ba-53310b6a0e74"))
     (comp
+      (ref "R8")
+      (value "10k")
+      (description "Resistor")
+      (footprint "Resistor_SMD:R_0402_1005Metric")
+      (fields
+        (field
+          (name "Description") "Resistor")
+        (field
+          (name "Footprint") "Resistor_SMD:R_0402_1005Metric")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "R8")
+        (field
+          (name "SKiDL Line") "gen_netlist.py:17"))
+      (libsource
+        (lib "Device")
+        (part "R"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "d4602b99-fd19-5b52-9a62-e3fbb9d2ed0c"))
+    (comp
+      (ref "R9")
+      (value "10k")
+      (description "Resistor")
+      (footprint "Resistor_SMD:R_0402_1005Metric")
+      (fields
+        (field
+          (name "Description") "Resistor")
+        (field
+          (name "Footprint") "Resistor_SMD:R_0402_1005Metric")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "R9")
+        (field
+          (name "SKiDL Line") "gen_netlist.py:17"))
+      (libsource
+        (lib "Device")
+        (part "R"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "abe8364b-5ed9-593a-a990-c9655e96dd67"))
+    (comp
       (ref "SW1")
       (value "SW_Push")
       (description "Push button switch, generic, two pins")
@@ -441,7 +513,7 @@
         (field
           (name "SKiDL Tag") "SW1")
         (field
-          (name "SKiDL Line") "gen_netlist.py:96"))
+          (name "SKiDL Line") "gen_netlist.py:100"))
       (libsource
         (lib "Switch")
         (part "SW_Push"))
@@ -465,7 +537,7 @@
         (field
           (name "SKiDL Tag") "SW2")
         (field
-          (name "SKiDL Line") "gen_netlist.py:96"))
+          (name "SKiDL Line") "gen_netlist.py:100"))
       (libsource
         (lib "Switch")
         (part "SW_Push"))
@@ -489,7 +561,7 @@
         (field
           (name "SKiDL Tag") "SW3")
         (field
-          (name "SKiDL Line") "gen_netlist.py:96"))
+          (name "SKiDL Line") "gen_netlist.py:100"))
       (libsource
         (lib "Switch")
         (part "SW_Push"))
@@ -561,7 +633,7 @@
         (field
           (name "SKiDL Tag") "U3")
         (field
-          (name "SKiDL Line") "gen_netlist.py:101"))
+          (name "SKiDL Line") "gen_netlist.py:105"))
       (libsource
         (lib "Sensor")
         (part "BME280"))
@@ -616,6 +688,10 @@
         (pin "1")
         (pintype "PASSIVE"))
       (node
+        (ref "C7")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
         (ref "J2")
         (pin "2")
         (pintype "PASSIVE"))
@@ -633,6 +709,14 @@
         (pintype "PASSIVE"))
       (node
         (ref "R6")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "R8")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "R9")
         (pin "1")
         (pintype "PASSIVE"))
       (node
@@ -765,6 +849,10 @@
         (pintype "PASSIVE"))
       (node
         (ref "C6")
+        (pin "2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "C7")
         (pin "2")
         (pintype "PASSIVE"))
       (node
@@ -988,6 +1076,30 @@
       (name "N$3")
       (class "Default")
       (node
+        (ref "R8")
+        (pin "2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U1")
+        (pin "16")
+        (pintype "BIDIRECTIONAL")))
+    (net
+      (code 19)
+      (name "N$4")
+      (class "Default")
+      (node
+        (ref "R9")
+        (pin "2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U1")
+        (pin "7")
+        (pintype "BIDIRECTIONAL")))
+    (net
+      (code 20)
+      (name "N$5")
+      (class "Default")
+      (node
         (ref "D1")
         (pin "2")
         (pintype "PASSIVE"))
@@ -996,7 +1108,7 @@
         (pin "2")
         (pintype "PASSIVE")))
     (net
-      (code 19)
+      (code 21)
       (name "USB_DM")
       (class "Default")
       (node
@@ -1020,7 +1132,7 @@
         (pin "4")
         (pintype "PASSIVE")))
     (net
-      (code 20)
+      (code 22)
       (name "USB_DP")
       (class "Default")
       (node

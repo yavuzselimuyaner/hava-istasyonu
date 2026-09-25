@@ -88,6 +88,10 @@ u1[12] += btn_io       # IO21
 c = C("C3", "10uF", C10_FP); c[1] += v3; c[2] += gnd
 c = C("C4", "100nF"); c[1] += v3; c[2] += gnd
 
+# Strapping pull-up'lari (datasheet Tablo 3-3): indirme modu GPIO2=1, GPIO8=1, GPIO9=0; GPIO2 icin pull-up onerilir
+for ref, pin in (("R8", 16), ("R9", 7)):     # IO2 = pin 16, IO8 = pin 7
+    r = R(ref, "10k"); r[1] += v3; r[2] += u1[pin]
+
 # EN devresi (10k + 1uF), BOOT pull-up, butonlar
 r = R("R3", "10k"); r[1] += v3; r[2] += en
 c = C("C5", "1uF"); c[1] += en; c[2] += gnd
@@ -108,6 +112,7 @@ u3["SDI"] += sda
 u3["SCK"] += scl
 u3["SDO"] += gnd
 c = C("C6", "100nF"); c[1] += v3; c[2] += gnd
+c = C("C7", "100nF"); c[1] += v3; c[2] += gnd   # Bosch: VDD ve VDDIO icin ayri 100 nF
 for ref, sig in (("R5", sda), ("R6", scl)):
     r = R(ref, "4.7k"); r[1] += v3; r[2] += sig
 

@@ -26,3 +26,12 @@ __pycache__/
 docs/build*.log
 *.lck
 ~*
+
+# kutu: 50 MB'lik parcali kart mesh/STEP (yeniden uretilir)
+case/out/board_with_parts.*
+case/__pycache__/
+
+# uretim cikti klasoru bu depoda tutulmuyor
+pcb/v1/fab/
+firmware/pc_demo/*.exe
+firmware/pc_demo/screen.ppm
