@@ -1,0 +1,40 @@
+menu "Hava Sensor Dugumu"
+    config WIFI_SSID
+        string "Wi-Fi SSID"
+        default ""
+    config WIFI_PASSWORD
+        string "Wi-Fi sifre"
+        default ""
+    config MQTT_URI
+        string "MQTT adresi (WebSocket, TLS)"
+        default "wss://public.cloud.shiftr.io:443"
+    config MQTT_USER
+        string "MQTT kullanici"
+        default "public"
+    config MQTT_PASS
+        string "MQTT sifre"
+        default "public"
+    config MQTT_TOPIC
+        string "Yayin konusu"
+        default "yavuz-hava-istasyonu/data"
+    config PUBLISH_SECONDS
+        int "Olcum ve yayin araligi (sn)"
+        default 60
+    choice SENSOR_KIND
+        prompt "Sensor"
+        default SENSOR_BME280
+        config SENSOR_BME280
+            bool "BME280 (I2C, v2 sensor karti)"
+        config SENSOR_DHT22
+            bool "DHT22 (tek tel, prototip)"
+    endchoice
+    config SENSOR_PIN
+        int "DHT22 veri pini"
+        default 4
+    config I2C_SDA
+        int "I2C SDA pini (BME280)"
+        default 4
+    config I2C_SCL
+        int "I2C SCL pini (BME280)"
+        default 5
+endmenu

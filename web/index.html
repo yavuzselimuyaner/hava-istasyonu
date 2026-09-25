@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hava İstasyonu</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 30rem; margin: 2rem auto; padding: 0 1rem; color: #222; background: #fafafa; }
+  h1 { font-size: 1.3rem; margin-bottom: .2rem; }
+  .durum { font-size: .85rem; color: #666; margin-bottom: 1.2rem; }
+  .nokta { display: inline-block; width: .6rem; height: .6rem; border-radius: 50%; background: #c33; margin-right: .3rem; }
+  .nokta.acik { background: #2a9d4b; }
+  .kart { display: flex; justify-content: space-between; align-items: baseline; padding: .8rem 1rem; margin: .5rem 0; background: #fff; border: 1px solid #ddd; border-radius: .5rem; }
+  .kart span { color: #666; }
+  .kart b { font-size: 1.8rem; }
+  .not { font-size: .85rem; color: #666; margin-top: 1rem; }
+  @media (prefers-color-scheme: dark) { body { background: #181818; color: #eee; } .kart { background: #222; border-color: #444; } .durum, .kart span, .not { color: #aaa; } }
+</style>
+</head>
+<body>
+<h1>Hava İstasyonu</h1>
+<div class="durum"><span class="nokta" id="nokta"></span><span id="durum">bağlanıyor…</span></div>
+
+<div class="kart"><span>Sıcaklık</span><b id="t">–</b></div>
+<div class="kart"><span>Nem</span><b id="h">–</b></div>
+<div class="kart"><span>Basınç</span><b id="p">–</b></div>
+<div class="kart"><span>Son güncelleme</span><b id="zaman" style="font-size:1.1rem">–</b></div>
+<div class="kart"><span>Meteoroloji servisi (Samsun)</span><b id="om" style="font-size:1.1rem">–</b></div>
+
+<p class="not">Cihaz ölçümü MQTT ile yayınlar, bu sayfa aynı konuyu dinler (<code id="konu"></code>). Herkese açık deneme sunucusu kullanılıyor: veri gizli değildir.</p>
+
+<script src="https://cdn.jsdelivr.net/npm/mqtt@5/dist/mqtt.min.js"></script>
+<script>
+  const KONU = new URLSearchParams(location.search).get("konu") || "yavuz-hava-istasyonu/data";
+  const $ = (id) => document.getElementById(id);
+  $("konu").textContent = KONU;
+  let sonOlcum = null;
+
+  const client = mqtt.connect("wss://public.cloud.shiftr.io", {
+    username: "public", password: "public", clientId: "web-" + Math.random().toString(16).slice(2, 10),
+  });
+  client.on("connect", () => { $("nokta").classList.add("acik"); $("durum").textContent = "sunucuya bağlı"; client.subscribe(KONU); });
+  client.on("close", () => { $("nokta").classList.remove("acik"); $("durum").textContent = "bağlantı yok"; });
+  client.on("message", (konu, yuk) => {
+    let d; try { d = JSON.parse(yuk.toString()); } catch (e) { return; }
+    if (typeof d.t === "number") $("t").textContent = d.t.toFixed(1) + " °C";
+    if (typeof d.h === "number") $("h").textContent = "%" + d.h.toFixed(0);
+    $("p").textContent = typeof d.p === "number" ? d.p.toFixed(0) + " hPa" : "yok";
+    sonOlcum = new Date(); $("zaman").textContent = sonOlcum.toLocaleTimeString("tr-TR");
+  });
+
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=41.2867&longitude=36.33&current=temperature_2m")
+    .then((r) => r.json()).then((j) => { $("om").textContent = j.current.temperature_2m.toFixed(1) + " °C"; })
+    .catch(() => { $("om").textContent = "alınamadı"; });
+</script>
+</body>
+</html>

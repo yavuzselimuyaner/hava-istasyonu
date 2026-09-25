@@ -1,6 +1,8 @@
 # Hava İstasyonu (ESP32-C3) — tasarım ve kod
 
-İnternetten hava durumunu çeken (Open-Meteo), kart üstündeki BME280 ile oda sıcaklık/nem/basıncını ölçen ve ikisini bir ekranda gösteren kart. Tasarım ve kod büyük ölçüde LLM ile üretildi. **Şu an yalnızca tasarım ve kod aşamasında; kart üretilmedi.**
+> **Güncel hedef (v2):** dışarıdaki sensörle ölçüp veriyi internete yayınlayan, tarayıcıdan izlenen sensör düğümü. `pcb/v2`, `firmware_v2`, `case/v2`, `web`. **v1** (internetten veri çeken sürüm) yanlış yönde yapılmıştı, referans olarak duruyor. Ayrıntı: `docs/SUREC-NOTLARI.md`.
+
+**v1 açıklaması:** İnternetten hava durumunu çeken (Open-Meteo), kart üstündeki BME280 ile oda sıcaklık/nem/basıncını ölçen ve ikisini bir ekranda gösteren kart. Tasarım ve kod büyük ölçüde LLM ile üretildi. **Şu an yalnızca tasarım ve kod aşamasında; kart üretilmedi.**
 
 Kararların, hataların ve düzeltmelerin tam kaydı: `docs/calisma-gunlugu.md`.
 
@@ -12,6 +14,10 @@ Kararların, hataların ve düzeltmelerin tam kaydı: `docs/calisma-gunlugu.md`.
 | `docs/tasarim.md` | ESKİ v0 (ESP32-S3) özeti, yalnızca karşılaştırma için |
 | `pcb/v1/` | Güncel kart: `gen_netlist.py` (SKiDL) → `build_board.py` (pcbnew) → `route.py` (Freerouting) |
 | `pcb/` (kök) | ESKİ v0 kartı (ESP32-S3), karşılaştırma için |
+| `pcb/v2/main`, `pcb/v2/sensor` | **v2 kartlar:** ana kart (32x41) ve uzak sensör kartı (14x16). Aynı betik zinciri |
+| `firmware_v2/` | **v2 firmware:** ölç ve MQTT ile yayınla (BME280 veya DHT22) |
+| `web/index.html` | **Tarayıcı sayfası** (tek dosya, MQTT.js) |
+| `case/v2/` | **v2 kutu:** ana kutu ve radyasyon siperi (FreeCAD), `check_fit_v2.py` çakışma kontrolü |
 | `case/` | Kutu (FreeCAD betiği): `dump_board.py` → `make_case.py` → `check_fit.py`; önizlemeler `kutu_*.png` |
 | `firmware/` | ESP-IDF projesi (ESP32-C3): Wi-Fi + Open-Meteo, BME280 sürücüsü, ST7789 ekran |
 | `firmware/pc_demo/` | **ESP32 olmadan çalışan PC demosu**: gerçek Open-Meteo verisi + firmware'in gerçek ekran/sensör kodu → `screen.png` |
@@ -27,6 +33,8 @@ Kararların, hataların ve düzeltmelerin tam kaydı: `docs/calisma-gunlugu.md`.
 | BME280 formülleri | Bosch örneği ve referans formülle doğrulandı | `firmware/test/host/bme_test.c` |
 | Ekran çizimi | Bilgisayarda önizleme doğrulandı | `firmware/test/host/preview.png` |
 | Kutu (55,3x68,6x18 mm) | Parçalı 3D kart modeli ile çakışma 0 | `case/README.md`, `case/gosterim_iso.png` |
+| v2 firmware uçtan uca (Wokwi) | ESP32-S3 + sanal DHT22 → Wi-Fi → MQTT → `web/index.html` gösterdi | günlük adım 27 |
+| v2 BME280 sürücüsü | Sanal sensör testi geçti (`firmware_v2/test/bme280_mock_test.c`) | günlük adım 27 |
 | ESP32'siz PC demosu | Gerçek dış hava + firmware kodu ile ekran görüntüsü | `firmware/pc_demo/pc_demo.py` |
 
 ## Doğrulanmadı (donanım veya insan gerekiyor)
