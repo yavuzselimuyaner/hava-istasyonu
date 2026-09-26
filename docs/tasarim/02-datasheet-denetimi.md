@@ -14,8 +14,9 @@ Kartlardaki bağlantılar ve değerler, parçaların datasheet'leriyle karşıla
 | BME280 Data sheet (Bosch Sensortec) | dosya revizyonu 1.24 (sayfa altbilgisi DS001-23 rev 1.23) |
 | AP2112 (Diodes Inc.) | DS39724 Rev. 2-2, Haziran 2017 |
 | GCT USB4105 Product Drawing | Rev B3 |
+| USBLC6-2 (STMicroelectronics) | Doc ID 11265 Rev 5, Ekim 2011 (üçüncü taraf kopyası) |
 
-## Sonuçlar (5 kontrolün 5'i uyuşuyor)
+## Sonuçlar (6 kontrolün 6'sı uyuşuyor)
 
 ### 1) Strapping pinleri ve açılış modu
 - **Kaynak:** Çip datasheet Tablo 3-1 ve 3-3 (s.30-31); modül datasheet Tablo 4-3.
@@ -43,9 +44,16 @@ Kartlardaki bağlantılar ve değerler, parçaların datasheet'leriyle karşıla
 - **Kondansatör:** Datasheet yalnızca 1 µF'ı örnekliyor, üst sınır vermiyor. Kartta 10 µF (X5R/X7R seçilmeli); bir tasarım tercihi, datasheet'le çelişmez.
 
 ### 5) USB-C alıcı (GCT USB4105)
-- **Kaynak:** Product Drawing, sayfa 1, pin tablosu.
+- **Kaynak:** Product Drawing, sayfa 1, pin tablosu ve "Recommended PCB Layout" ölçüleri.
 - **Pinler:** A1, A12, B1, B12 = GND; A4, A9, B4, B9 = VBUS; A5 = CC1; B5 = CC2; A6/B6 = D+; A7/B7 = D−; A8 = SBU1; B8 = SBU2; kabuk = GND. Karttaki bağlantılarla birebir aynı (SBU pinleri bağlantısız).
+- **Footprint ölçüleri:** Önerilen PCB deseni ile KiCad footprint'i sayısal karşılaştırıldı: pad merkezleri ±3,20 / ±2,40 / ±1,75 / ±1,25 / ±0,75 / ±0,25 mm, pad genişlikleri 0,60 ve 0,30 mm, pad boyu 1,15 mm, konumlandırma delikleri Ø0,65 mm (aralık 5,78 mm), kabuk delikleri 8,64 mm aralıkta (üstte 1,0x2,1 mm oval, delik 0,6x1,7; altta 1,0x1,8 mm oval, delik 0,6x1,4) ve delikler arası 4,18 mm: hepsi çizimle aynı.
+- **Kart kenarı:** Çizimde kart kenarı alt kabuk delik merkezinin 2,60 mm ötesinde; kartta konnektör kenardan 3,5 mm içeride, çizime göre 3,675 mm olmalı. Kabuk 0,175 mm fazla dışarı taşıyor; çizimin ±0,05 mm toleransının dışında, bu bilinen bir sapma olarak not edildi.
 - **CC dirençleri:** Çizimde yok. USB Type-C kuralı: cihaz (sink) tarafında her CC pini ayrı ayrı 5,1 kΩ ile GND'ye bağlanır. Kartta iki ayrı 5,1 kΩ direnç.
+
+### 6) USBLC6-2SC6 (SOT23-6L)
+- **Kaynak:** ST datasheet, Şekil 1 (üstten görünüş, fonksiyonel şema).
+- **Pinler:** 1 ve 6 = I/O1, 2 = GND, 3 ve 4 = I/O2, 5 = VBUS. Kartta pin 1 ve 6 USB_DP, pin 3 ve 4 USB_DM, pin 2 GND, pin 5 +5V: birebir aynı (`03-pin-tablosu.md`).
+- **Belge:** ST'nin resmi sitesi bu denetimde açılamadı; içeriği ST datasheet'inin bir kopyasından (üçüncü taraf, ST logolu, Doc ID 11265 Rev 5) okundu. Şekil ve pin numaraları sayfa görüntüsünden doğrulandı.
 
 ## Denetimde bulunan ve düzeltilen hatalar
 | Bulgu | Düzeltme |
@@ -64,8 +72,6 @@ Kartlardaki bağlantılar ve değerler, parçaların datasheet'leriyle karşıla
 - **Kutu ve siper çakışması:** KiCad'in parçalı 3D kart modeli FreeCAD'de kutu ve siperle kesiştirildi: çakışma yok. Kontrolün doğruluğu, kartı bilerek duvara kaydırıp çakışmanın bulunmasıyla sınandı.
 
 ## Açıkta kalanlar ve bilinen sınırlar
-- **USBLC6-2SC6:** ST datasheet'i bu denetimde kullanılmadı; pin sırası (1 I/O1, 2 GND, 3 I/O2, 4 I/O2, 5 VBUS, 6 I/O1) ikincil kaynaktan.
-- **USB4105 footprint ölçüleri:** Pin tablosu doğrulandı; ayak izi ölçüleri (kabuk delikleri, lehim alanları) çizimle sayısal karşılaştırılmadı.
 - **USB Type-C 5,1 kΩ kuralı:** Birkaç ikincil kaynakla teyit edildi; USB-IF spesifikasyonunun kendisi açılmadı.
 - **Anten yasak bölgesi:** Ölçü, footprint'in courtyard'ından alındı; Espressif donanım tasarım rehberinin ilgili bölümü ayrıca incelenmedi.
 - **USB izleri:** Ana kartta modülün altından geçiyor; kritik hatlar için elle yönlendirme daha iyi olurdu.
