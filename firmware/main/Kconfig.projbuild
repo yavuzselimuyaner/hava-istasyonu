@@ -24,7 +24,7 @@ menu "Hava Sensor Dugumu"
         prompt "Sensor"
         default SENSOR_BME280
         config SENSOR_BME280
-            bool "BME280 (I2C, v2 sensor karti)"
+            bool "BME280 (I2C, sensor karti)"
         config SENSOR_DHT22
             bool "DHT22 (tek tel, prototip)"
     endchoice

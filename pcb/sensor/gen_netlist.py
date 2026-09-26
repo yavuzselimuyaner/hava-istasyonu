@@ -1,4 +1,4 @@
-"""v2 sensor karti: BME280 + 2x100nF + 4 pinli konnektor + 2 montaj deligi.
+"""Sensor karti: BME280 + 2x100nF + 4 pinli konnektor + 2 montaj deligi.
 Konnektor sirasi ana kartla ayni: 1=3V3, 2=SDA, 3=GND, 4=SCL. I2C pull-up'lari ana kartta."""
 import os
 KI = r"C:\Program Files\KiCad\10.0\share\kicad"

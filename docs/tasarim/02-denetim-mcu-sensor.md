@@ -1,6 +1,6 @@
-# v1 Adım 2 — Denetim (Agent: denetçi)
+# Adım 2 — Denetim (Agent: denetçi)
 
-> **Not:** Bu belge eski (v1) tasarım için yazıldı: cihaz ekranlıydı ve internetten veri çekiyordu. **Ekran, pin planı ve "internetten çekme" kısımları ESKİDİR.** MCU/sensör/regülatör seçimi ve datasheet bulguları v2 için de GEÇERLİDİR. Güncel gereksinim: `00-gereksinim.md`.
+> **Not:** Bu belge eski (ekranlı) tasarım için yazıldı: cihaz ekranlıydı ve internetten veri çekiyordu. **Ekran, pin planı ve "internetten çekme" kısımları ESKİDİR.** MCU/sensör/regülatör seçimi ve datasheet bulguları güncel tasarım için de GEÇERLİDİR. Güncel gereksinim: `00-gereksinim.md`.
 
 
 Kaynaklar: Espressif ESP32-C3-WROOM-02 datasheet (documentation.espressif.com), Bosch BME280 datasheet rev 1.24, Diodes AP2112 datasheet DS39724, JLCPCB parça sayfaları (arama sonuçları). Sonuçlar web aramasının özetlerine dayanır; kritik sayılar tasarım kilitlenmeden önce PDF'den elle teyit edilmelidir.
@@ -20,7 +20,7 @@ Kaynaklar: Espressif ESP32-C3-WROOM-02 datasheet (documentation.espressif.com), 
 2. **Güç marjı ince.** Datasheet dış kaynak için en az 0.5 A istiyor; AP2112K-3.3'ün garantili akımı 600 mA. Marj yalnızca 100 mA. Kabul edilebilir ama not düşülmeli: yeterli çıkış kondansatörü ve kısa yol; sorun çıkarsa daha güçlü LDO.
 3. **Pin bütçesi sıkı.** Kullanılabilir sinyal pini: IO0,1,3,4,5,6,7,10 (8 pin) + UART pinleri IO20,IO21 (USB konsol kullanıldığı için serbest) = 10. Strapping (2,8,9) ve USB (18,19) hariç.
 
-## Pin planı (v1, onaylanacak)
+## Pin planı (eski tasarım, onaylanacak)
 | Sinyal | Pin |
 |---|---|
 | I2C SDA / SCL | IO4 / IO5 |

@@ -4,7 +4,7 @@ import subprocess
 import pcbnew
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-JAR = os.path.join(HERE, "..", "..", "tools", "freerouting-2.1.0.jar")
+JAR = os.path.join(HERE, "..", "tools", "freerouting-2.1.0.jar")
 SRC = os.path.join(HERE, "hava.kicad_pcb")
 DSN = os.path.join(HERE, "hava.dsn")
 SES = os.path.join(HERE, "hava.ses")

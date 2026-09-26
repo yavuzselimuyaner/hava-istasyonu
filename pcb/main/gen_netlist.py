@@ -1,4 +1,4 @@
-"""v2 ana kart: ESP32-C3 sensor dugumu. Ekran yok; uzak sensor icin 4 pinli konnektor (J2).
+"""Ana kart: ESP32-C3 sensor dugumu. Ekran yok; uzak sensor icin 4 pinli konnektor (J2).
 Konnektor sirasi (DHT22 3 telli modulu de takilabilsin diye): 1=3V3, 2=SDA/DATA, 3=GND, 4=SCL."""
 import os
 KI = r"C:\Program Files\KiCad\10.0\share\kicad"

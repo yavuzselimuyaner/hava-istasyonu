@@ -31,22 +31,18 @@ docs/build*.log
 case/out/board_with_parts.*
 case/__pycache__/
 
-# uretim cikti klasoru bu depoda tutulmuyor
-pcb/v1/fab/
 firmware/pc_demo/*.exe
 firmware/pc_demo/screen.ppm
 
-# firmware_v2 uretilen dosyalar
-firmware_v2/build*/
-firmware_v2/managed_components/
-firmware_v2/sdkconfig
-firmware_v2/sdkconfig.*
-!firmware_v2/sdkconfig.defaults*
-firmware_v2/dependencies.lock
-firmware_v2/test/*.exe
-firmware_v2/test/dht22_test
+# firmware uretilen dosyalar
+firmware/build*/
+firmware/sdkconfig.*
+!firmware/sdkconfig.defaults*
+firmware/dependencies.lock
+firmware/test/*.exe
+firmware/test/dht22_test
 
-# case/v2: buyuk ve yeniden uretilebilir
-case/v2/out/*_with_parts.*
-case/v2/out/shield_section.stl
-!firmware_v2/sdkconfig.wokwi.defaults
+# case: buyuk ve yeniden uretilebilir
+case/out/*_with_parts.*
+case/out/shield_section.stl
+!firmware/sdkconfig.wokwi.defaults

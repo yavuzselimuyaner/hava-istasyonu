@@ -1,4 +1,4 @@
-"""v2 gorselleri (basit z-buffer isleyici: render_preview.py). Calistir: python render_v2.py"""
+"""Kutu ve siper gorselleri (basit z-buffer isleyici: render_preview.py). Calistir: python render_gorseller.py"""
 import os, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 import render_preview as rp

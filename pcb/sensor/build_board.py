@@ -1,6 +1,6 @@
 """KiCad'in kendi Python'u ile çalıştır:
   "C:\\Program Files\\KiCad\\10.0\\bin\\python.exe" build_board.py
-v1 hava.net -> hava.kicad_pcb (footprint yerleşimi + net atamaları + kart sınırı)
+hava.net -> hava.kicad_pcb (footprint yerleşimi + net atamaları + kart sınırı)
 """
 import os
 import re
@@ -8,7 +8,7 @@ import pcbnew
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 FP_DIR = r"C:\Program Files\KiCad\10.0\share\kicad\footprints"
-BOARD_W, BOARD_H = 32.0, 41.0   # mm
+BOARD_W, BOARD_H = 14.0, 16.0   # mm
 ORG_X, ORG_Y = 100.0, 100.0     # kartın sol-üst köşesi (sayfa koordinatı)
 
 
@@ -58,23 +58,13 @@ for n in find_all(find(tree, "nets"), "net"):
     name = find(n, "name")[1]
     nets[name] = [(find(nd, "ref")[1], find(nd, "pin")[1]) for nd in find_all(n, "node")]
 
-# Yerlesim (mm, kart sol-ust koseye gore). Anten kartin ust kenarindan disari tasar (U1 y=7.2).
+# Yerlesim (mm). J1 90 derece dondurulmus: pinler x yonunde, kartin alt kenarinda.
 PLACE = {
-    "U1": (16.0, 7.2, 0), "J1": (16.0, BOARD_H - 3.5, 0), "U4": (16.0, 30.6, 0),
-    "U2": (6.5, 29.0, 0), "C1": (6.5, 33.5, 0), "C2": (10.8, 29.0, 0),
-    "R1": (8.4, 36.6, 0), "R2": (5.6, 36.6, 0),
-    "C3": (3.5, 3.5, 0), "C4": (3.5, 7.0, 0), "R3": (3.2, 10.5, 0), "C5": (3.2, 14.0, 0),
-    "R4": (3.2, 17.5, 0), "R9": (3.2, 21.0, 0), "R8": (13.5, 17.0, 0),
-    "SW1": (24.5, 29.0, 0), "SW2": (24.5, 34.5, 0),
-    "D1": (13.0, 23.0, 0), "R7": (10.0, 23.0, 0),
-    "J2": (22.0, 16.5, 0),       # dik acili header: pin ucu +x'e, kart kenarina kadar (x~32.1)
-    "R5": (18.5, 16.5, 0), "R6": (18.5, 19.0, 0),
-    "H1": (2.5, BOARD_H - 2.5, 0), "H2": (BOARD_W - 2.5, BOARD_H - 2.5, 0),
+    "U1": (7.0, 4.5, 0), "C1": (4.0, 7.7, 0), "C2": (10.0, 7.7, 0),
+    "J1": (2.95, 12.8, 90),
+    "H1": (2.0, 2.0, 0), "H2": (BOARD_W - 2.0, 2.0, 0),
 }
-EXPECT = {"U1": "ESP32-C3", "J1": "USB", "U2": "AP2112", "U4": "USBLC6", "J2": "Conn",
-          "R1": "5.1k", "R2": "5.1k", "R3": "10k", "R4": "10k", "R5": "4.7k", "R6": "4.7k",
-          "R7": "1k", "R8": "10k", "R9": "10k", "C1": "10uF", "C2": "10uF", "C3": "10uF",
-          "C4": "100nF", "C5": "1uF", "D1": "LED", "SW1": "SW", "SW2": "SW", "H1": "Mounting", "H2": "Mounting"}
+EXPECT = {"U1": "BME280", "C1": "100nF", "C2": "100nF", "J1": "Conn", "H1": "Mounting", "H2": "Mounting"}
 for ref, key in EXPECT.items():
     assert key in comps[ref]["value"] or key in comps[ref]["footprint"], (ref, comps[ref])
 assert set(comps) == set(PLACE), set(comps) ^ set(PLACE)

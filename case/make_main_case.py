@@ -1,8 +1,8 @@
-"""freecadcmd make_main_case.py : ana kart (v2) kutusu. Kart 2 vida ile tabana sabitlenir (M2 montaj delikleri).
+"""freecadcmd make_main_case.py : ana kart kutusu. Kart 2 vida ile tabana sabitlenir (M2 montaj delikleri).
 Sag duvardan sensor kablosu (dik acili header), alt duvardan USB-C. Kapakta 2 buton ve 1 LED deligi."""
 import json, os
 import FreeCAD as App, Part
-HERE = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else r"C:\Users\yavuz\Desktop\hava-istasyonu\case\v2"
+HERE = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else r"C:\Users\yavuz\Desktop\hava-istasyonu\case"
 D = json.load(open(os.path.join(HERE, "dims_main.json")))
 bx0, by0, bx1, by1 = D["board"]; P = D["parts"]
 
