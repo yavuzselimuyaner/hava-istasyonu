@@ -32,7 +32,6 @@ Konnektör sırası (iki kartta aynı): 1=3V3, 2=SDA/DATA, 3=GND, 4=SCL. İlk ü
 - T-Display-S3'te DHT22 için GPIO10 (varsayım).
 - Siperin yağmur koruması sınırlı; anten çevresindeki plastiğin etkisi ölçülmedi.
 - Ana kartta USB izleri modül gövdesinin altından geçiyor (bilinen risk).
-- Hocanın "delikler bir optimizasyon problemi" sözünün tam anlamı.
 
 ## Yeniden üretme (Windows)
 Gerekenler: KiCad 10 (`C:\Program Files\KiCad\10.0`), FreeCAD 1.1, Java 21, ESP-IDF v6.0.2, Python (SKiDL için `pcb/.venv`). Freerouting **v2.1.0** (Java 21 ile çalışan sürüm) `pcb/tools/` içinde olmalı (indirilmez, repo'da yok).
