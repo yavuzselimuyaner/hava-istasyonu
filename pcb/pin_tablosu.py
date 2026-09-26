@@ -1,5 +1,5 @@
-"""Netlist'ten (pcb/*/hava.net) pin -> net tablosu uretir: docs/tasarim/05-pin-tablosu.md
-Yavuz'un datasheet ile karsilastirmasi icin. Pin isimleri KiCad sembol dosyalarindan okunur."""
+"""Netlist'ten (pcb/*/hava.net) pin -> net tablosu uretir: docs/tasarim/03-pin-tablosu.md
+Datasheet'lerle karsilastirmak icin. Pin isimleri KiCad sembol dosyalarindan okunur."""
 import re, os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -66,7 +66,7 @@ def table(ref, comps, pin_net, names, only_used=False):
 
 out = ["# Pin tablosu (karttan otomatik üretildi)",
        "",
-       "Bu tablo `pcb/*/hava.net` dosyasından üretildi (`pcb/pin_tablosu.py`). Datasheet'teki pin tablosuyla yan yana koyup **kendi gözünle** karşılaştır: pin numarası, ad ve bağlı olduğu net uyuşuyor mu?",
+       "Bu tablo `pcb/*/hava.net` dosyasından üretildi (`pcb/pin_tablosu.py`). Datasheet'lerdeki pin tablolarıyla karşılaştırma için: pin numarası, ad ve bağlı olduğu net. Karşılaştırma sonuçları `02-datasheet-denetimi.md` içinde.",
        "Net adları: `+3V3`, `+5V`, `GND` güç hatları; `I2C_SDA/SCL` sensör; `USB_DP/DM` USB; `EN`, `BOOT` reset ve boot.",
        ""]
 comps, pn = load_net(os.path.join(ROOT, "pcb", "main", "hava.net"))
@@ -92,5 +92,5 @@ out += ["### Kondansatörler", "", "| Ref | Değer | Pin 1 | Pin 2 |", "|---|---
 for ref in sorted((r for r in comps2 if re.match(r"C\d+$", r)), key=lambda r: int(r[1:])):
     out.append("| %s | %s | %s | %s |" % (ref, comps2[ref], pn2.get((ref, "1"), ""), pn2.get((ref, "2"), "")))
 out.append("")
-open(os.path.join(ROOT, "docs", "tasarim", "05-pin-tablosu.md"), "w", encoding="utf8").write("\n".join(out))
+open(os.path.join(ROOT, "docs", "tasarim", "03-pin-tablosu.md"), "w", encoding="utf8").write("\n".join(out))
 print("yazildi, satir:", len(out))

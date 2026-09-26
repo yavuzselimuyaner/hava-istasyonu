@@ -1,5 +1,5 @@
 /* Hava sensor dugumu: olc -> MQTT (WebSocket/TLS) ile yayinla. Bir tarayici sayfasi (web/index.html) ayni konuyu dinler.
- * Sensor: BME280 (sensor karti) veya DHT22 (prototip). Kart: ESP32-C3 (ana kart) veya T-Display-S3 (prototip). */
+ * Sensor: BME280 (sensor karti) veya DHT22 (alternatif). Kart: ESP32-C3 (ana kart) veya ESP32-S3 (simulasyon hedefi). */
 #include <stdio.h>
 #include <string.h>
 #include "freertos/FreeRTOS.h"

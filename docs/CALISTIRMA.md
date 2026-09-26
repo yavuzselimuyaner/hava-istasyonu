@@ -10,7 +10,7 @@ Gerekenler: KiCad 10 (`C:\Program Files\KiCad\10.0`), FreeCAD 1.1, Java 21, ESP-
 ```
 Freerouting deterministik değildir; sonuç her seferinde biraz farklı çıkar. Denemeden önce çalışan `hava_routed.kicad_pcb` dosyasını Git'e kaydet.
 
-Pin tablosu (datasheet karşılaştırması için): `python pcb/pin_tablosu.py` çalıştırılınca `docs/tasarim/05-pin-tablosu.md` yeniden üretilir.
+Pin tablosu (datasheet karşılaştırması için): `python pcb/pin_tablosu.py` çalıştırılınca `docs/tasarim/03-pin-tablosu.md` yeniden üretilir.
 
 ## Kutu ve siper (`case` içinde)
 Sırasıyla `dump_board.py` (KiCad python), `make_main_case.py`, `make_shield.py`, `kicad-cli pcb export step ...`, `check_fit.py` (hepsi `freecadcmd` ile), `render_gorseller.py`. Komutlar betiklerin başındaki açıklamalarda.

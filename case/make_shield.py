@@ -3,7 +3,7 @@ Sensor karti UST (bilesen) yuzu ASAGI bakacak sekilde catinin altina 2 direge as
 Dupont fisi ve kablo alttan cikar. Olculer dims_sensor.json'dan (montaj deligi konumu)."""
 import json, os, math
 import FreeCAD as App, Part
-HERE = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else r"C:\Users\yavuz\Desktop\hava-istasyonu\case"
+HERE = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else os.getcwd()
 D = json.load(open(os.path.join(HERE, "dims_sensor.json")))
 bx0, by0, bx1, by1 = D["board"]
 cxb, cyb = (bx0 + bx1) / 2, (by0 + by1) / 2          # kart merkezi

@@ -1,6 +1,6 @@
 """freecadcmd check_fit.py : parcali 3D kart modelleri ile kutu/siper cakisma kontrolu (Dupont fis yer tutucusu dahil)."""
 import json, os, FreeCAD as App, Part
-HERE = r"C:\Users\yavuz\Desktop\hava-istasyonu\case"; out = os.path.join(HERE, "out")
+HERE = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else os.getcwd(); out = os.path.join(HERE, "out")
 def load(n):
     s = Part.Shape(); s.read(os.path.join(out, n)); return s
 def report(name, board, solids):

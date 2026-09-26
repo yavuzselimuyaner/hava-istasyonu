@@ -1,4 +1,4 @@
-# Prototip: LilyGO T-Display-S3 (16 MB) + DHT22 (veri pini GPIO10 varsayimi: kartin header pinine gore kontrol et)
+# ESP32-S3 hedefi (simulasyon ve alternatif, 16 MB flash), DHT22 sensoru (veri pini GPIO10)
 CONFIG_ESPTOOLPY_FLASHSIZE_16MB=y
 CONFIG_SENSOR_DHT22=y
 CONFIG_SENSOR_PIN=10

@@ -1,6 +1,6 @@
 # Pin tablosu (karttan otomatik üretildi)
 
-Bu tablo `pcb/*/hava.net` dosyasından üretildi (`pcb/pin_tablosu.py`). Datasheet'teki pin tablosuyla yan yana koyup **kendi gözünle** karşılaştır: pin numarası, ad ve bağlı olduğu net uyuşuyor mu?
+Bu tablo `pcb/*/hava.net` dosyasından üretildi (`pcb/pin_tablosu.py`). Datasheet'lerdeki pin tablolarıyla karşılaştırma için: pin numarası, ad ve bağlı olduğu net. Karşılaştırma sonuçları `02-datasheet-denetimi.md` içinde.
 Net adları: `+3V3`, `+5V`, `GND` güç hatları; `I2C_SDA/SCL` sensör; `USB_DP/DM` USB; `EN`, `BOOT` reset ve boot.
 
 ## Ana kart

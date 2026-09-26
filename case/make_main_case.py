@@ -2,7 +2,7 @@
 Sag duvardan sensor kablosu (dik acili header), alt duvardan USB-C. Kapakta 2 buton ve 1 LED deligi."""
 import json, os
 import FreeCAD as App, Part
-HERE = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else r"C:\Users\yavuz\Desktop\hava-istasyonu\case"
+HERE = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else os.getcwd()
 D = json.load(open(os.path.join(HERE, "dims_main.json")))
 bx0, by0, bx1, by1 = D["board"]; P = D["parts"]
 

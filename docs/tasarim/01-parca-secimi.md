@@ -1,61 +1,48 @@
-# Adım 1 — Parça Seçimi (Agent: parça seçici)
+# Parça seçimi
 
-> **Not:** Bu belge eski (ekranlı) tasarım için yazıldı: cihaz ekranlıydı ve internetten veri çekiyordu. **Ekran, pin planı ve "internetten çekme" kısımları ESKİDİR.** MCU/sensör/regülatör seçimi ve datasheet bulguları güncel tasarım için de GEÇERLİDİR. Güncel gereksinim: `00-gereksinim.md`.
+Her parça için seçilen ve elenen alternatifler ve gerekçe. Datasheet doğrulaması `02-datasheet-denetimi.md` içinde.
 
-
-Girdi: yalnızca 00-gereksinim.md. Kullanıcının elindeki donanım (T-Display, ESP32-S3) bilerek DİKKATE ALINMADI.
-Kısıt notu: Ağ erişimi olmadan yazıldı; JLCPCB stok/fiyat ve datasheet değerleri DOĞRULANMADI. Bunlar denetçi adımının işidir (aşağıda işaretli).
-
-## 1. MCU
-| Aday | Artı | Eksi |
-|---|---|---|
-| ESP32-C3-WROOM-02 | Wi-Fi + BLE, sertifikalı anten modülü, tek çekirdek RISC-V yeterli, USB Serial/JTAG dahili (ek çip yok), ucuz, KiCad'de sembol+footprint var | 22 GPIO civarı; ihtiyaç için yeterli |
-| ESP32-S3-WROOM-1 | Daha çok GPIO, daha güçlü | Bu iş için gereksiz, daha pahalı, daha yüksek akım |
-| ESP32-S2-MINI-1 | Wi-Fi, USB OTG | BLE yok, C3'ten belirgin avantaj yok |
-| RP2040 + ayrı Wi-Fi modülü | Ucuz MCU | İki çip, ek flash/kristal, karmaşıklık ve hata riski |
-
-**Seçim: ESP32-C3-WROOM-02** (RF_Module:ESP32-C3-WROOM-02). Gerekçe: gereksinim yalnızca Wi-Fi, bir I2C sensörü ve bir SPI ekran; en az parçayla en düşük risk. Sertifikalı modül, anten tasarımı riskini kaldırır.
-- Doğrulanacak: pin ataması (strapping GPIO2/8/9), USB pinleri GPIO18/19, tepe akım.
-
-## 2. Sensör
-| Aday | Not |
+## İşlemci (MCU)
+| Aday | Değerlendirme |
 |---|---|
-| BME280 | Sıcaklık+nem+basınç tek çipte, I2C, 2.5x2.5 mm LGA (elle lehimlenmez, montaj hizmetiyle olur) |
-| SHT31/SHT4x + BMP280 | İki çip, daha iyi nem/sıcaklık doğruluğu, daha çok parça |
-| AHT20 + BMP280 | Ucuz ama iki çip |
+| **ESP32-C3-WROOM-02** | Seçildi. Wi-Fi ve BLE içinde, sertifikalı PCB anten modülü, USB Serial/JTAG dahili (ek çip gerekmez), ucuz, KiCad'de sembol ve footprint hazır. Modülde 15 GPIO pini var, bu iş için yeterli. |
+| ESP32-S3-WROOM-1 | Bu iş için gereksiz güçlü, daha pahalı ve daha yüksek akımlı. |
+| ESP32-S2-MINI-1 | Wi-Fi var, BLE yok, C3'e göre belirgin bir avantajı yok. |
+| RP2040 + ayrı Wi-Fi modülü | İki çip, ek flash ve kristal gerekir; karmaşıklık ve hata riski artar. |
 
-**Seçim: BME280** (Sensor:BME280). Gerekçe: gereksinim üç ölçümü istiyor, tek çip en az parça. Risk: kartın kendi ısısı sıcaklığı yükseltir, sensör ısı kaynaklarından uzağa ve kart kenarına konmalı; klon/sahte BME280 riski (BMP280 olarak çıkabilir).
+Çıplak çip yerine hazır modül seçildi: anten, kristal ve flash zaten entegre ve sertifikalı; RF tasarımı yeniden yapılmıyor.
 
-## 3. Regülatör
-| Aday | Not |
+## Sensör
+| Aday | Değerlendirme |
 |---|---|
-| AP2112K-3.3 | 600 mA, SOT-23-5, yaygın |
-| ME6211C33M5 | 500 mA, çok yaygın ve ucuz |
-| XC6220B331MR | 700 mA, daha pahalı |
+| **BME280** | Seçildi. Sıcaklık, nem ve basınç tek çipte, I2C, 2,5 x 2,5 mm LGA. |
+| SHT31 / SHT4x + BMP280 | Nem ve sıcaklık doğruluğu daha iyi olabilir ama iki çip gerekir. |
+| AHT20 + BMP280 | İki çip. |
+| DHT22 | Basınç yok, tek tel protokol; firmware'de alternatif sensör olarak desteklenir. |
 
-**Seçim: AP2112K-3.3.** Gerekçe: Wi-Fi TX tepe akımı (~350 mA civarı C3 için) altında yeterli marj. Doğrulanacak: datasheet'te tepe akım ve dropout, çıkış kondansatörü gereksinimi.
+BME280'in kendi ısınması ölçümü etkileyebilir; bu yüzden ısı kaynaklarından uzak, ayrı bir kartta.
 
-## 4. USB-C
-16 pinli USB 2.0 Type-C girişi (Connector:USB_C_Receptacle_USB2.0_16P), CC1/CC2 için 5.1 kΩ (5 V sink), D+/D− doğrudan C3'ün USB pinlerine. Ek ESD koruması (USBLC6-2SC6) eklenir.
-- Doğrulanacak: JLCPCB'de montaj yapılan uygun bir 16P konnektör var mı, footprint uyumu.
-
-## 5. Ekran (KARAR)
-| Seçenek | Not |
+## Regülatör
+| Aday | Değerlendirme |
 |---|---|
-| Harici 1.3" ST7789 SPI 240x240 modül, 8 pin header | Karta ekran flexi/FPC routing riski yok, modül ucuz ve yaygın |
-| Karta doğrudan bağlı ekran (FPC) | Daha kompakt, ama FPC footprint ve sürücü riski yüksek |
-| 0.96" OLED I2C | Sensörle aynı I2C hattı, az pin; ama küçük, hava verisi için yetersiz |
+| **AP2112K-3.3** | Seçildi. 600 mA, SOT-23-5, yaygın. Modülün en yüksek Wi-Fi akımı ~345 mA, önerilen harici kaynak akımı 0,5 A: yeterli. |
+| ME6211C33M5 | 500 mA; marj daha dar. |
+| XC6220B331MR | 700 mA; daha pahalı. |
 
-**Seçim: harici 1.3" ST7789 SPI modül, 8 pin header.** Gerekçe: yerleşim ve montaj riskini azaltır. Bu karar gereksinimde açık bırakıldığı için agent'a aittir.
+## USB
+- **USB-C alıcı (GCT USB4105, 16 pin, USB 2.0):** Güç ve programlama/log.
+- **CC1 ve CC2:** Her biri ayrı ayrı 5,1 kΩ ile GND'ye (cihaz tarafı, 5 V).
+- **USBLC6-2SC6:** USB veri hatlarını ve VBUS'ı ESD'ye karşı korur.
 
-## 6. Yardımcı parçalar
-- Reset (EN) ve BOOT (GPIO9) butonları, 10 kΩ pull-up'lar, EN için 1 µF.
-- I2C pull-up 4.7 kΩ ×2.
-- Bypass kondansatörleri (MCU, sensör, regülatör giriş/çıkış).
-- Durum LED'i + direnç.
+## Diğer parçalar
+- **EN devresi:** 10 kΩ pull-up ve 1 µF (üretici önerisi), reset butonu.
+- **Boot:** IO9 için buton ve 10 kΩ pull-up.
+- **Strapping pull-up'ları:** IO2 ve IO8 için 10 kΩ (açılış modunu belirleyen pinler).
+- **I2C pull-up'ları:** SDA ve SCL için 4,7 kΩ.
+- **Kondansatörler:** 3V3 hattında 10 µF ve 100 nF; regülatörde giriş ve çıkışta 10 µF; BME280 için iki adet 100 nF (VDD ve VDDIO).
+- **Durum LED'i** ve 1 kΩ direnç.
+- **Sensör konnektörü:** 1x4, 2,54 mm, dik açılı (kablo yandan çıksın, kutu alçak kalsın). Pin sırası: 1=3V3, 2=SDA/DATA, 3=GND, 4=SCL; ilk üç pin yaygın 3 telli sensör modüllerinin (VCC, DATA, GND) sırasına denk gelir.
+- **Montaj delikleri:** Her kartta 2 adet M2.
 
-## Denetçiye devredilen kontrol listesi
-- [ ] ESP32-C3-WROOM-02 datasheet: pin isimleri, strapping, EN devresi, USB pinleri, anten keepout
-- [ ] BME280 datasheet: adres seçimi (SDO), CSB pinini I2C modu için bağlama, güç/decoupling
-- [ ] AP2112K datasheet: çıkış C değeri, EN kullanımı
-- [ ] JLCPCB: parçaların montaj kataloğunda olup olmadığı, temel/genişletilmiş parça durumu
+## Sensör kartı
+BME280, 2 x 100 nF, aynı 4 pinli konnektör ve 2 montaj deliği. I2C pull-up dirençleri ana kartta.
