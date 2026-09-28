@@ -1,4 +1,4 @@
-"""Netlist'ten (pcb/*/hava.net) pin -> net tablosu uretir: docs/tasarim/03-pin-tablosu.md
+"""Sematikten alinan netlistten (pcb/*/hava.net) pin -> net tablosu uretir: docs/tasarim/03-pin-tablosu.md
 Datasheet'lerle karsilastirmak icin. Pin isimleri KiCad sembol dosyalarindan okunur."""
 import re, os
 
@@ -39,7 +39,9 @@ def load_net(path):
         comps[find(c, "ref")[1]] = find(c, "value")[1]
     pin_net = {}
     for n in find_all(find(tree, "nets"), "net"):
-        name = find(n, "name")[1]
+        name = find(n, "name")[1].lstrip("/")      # KiCad yerel etiketleri "/AD" diye yazar
+        if name.startswith("unconnected-"):
+            continue                                  # boş bacak (şematikte "bağlantı yok" işareti)
         for nd in find_all(n, "node"):
             pin_net[(find(nd, "ref")[1], find(nd, "pin")[1])] = name
     return comps, pin_net
@@ -66,13 +68,13 @@ def table(ref, comps, pin_net, names, only_used=False):
 
 out = ["# Pin tablosu (karttan otomatik üretildi)",
        "",
-       "Bu tablo `pcb/*/hava.net` dosyasından üretildi (`pcb/pin_tablosu.py`). Datasheet'lerdeki pin tablolarıyla karşılaştırma için: pin numarası, ad ve bağlı olduğu net. Karşılaştırma sonuçları `02-datasheet-denetimi.md` içinde.",
+       "Bu tablo, şematikten (`pcb/*/hava.kicad_sch`) alınan `pcb/*/hava.net` dosyasından üretildi (`pcb/pin_tablosu.py`). Datasheet'lerdeki pin tablolarıyla karşılaştırma için: pin numarası, ad ve bağlı olduğu net. Karşılaştırma sonuçları `02-datasheet-denetimi.md` içinde.",
        "Net adları: `+3V3`, `+5V`, `GND` güç hatları; `I2C_SDA/SCL` sensör; `USB_DP/DM` USB; `EN`, `BOOT` reset ve boot.",
        ""]
 comps, pn = load_net(os.path.join(ROOT, "pcb", "main", "hava.net"))
 out += ["## Ana kart", ""]
 out += ["### U1 — ESP32-C3-WROOM-02 (karşılaştır: modül datasheet'i pin tablosu; çip datasheet'i Tablo 3-3 boot)", "", table("U1", comps, pn, sym_pins("RF_Module", "ESP32-C3-WROOM-02")), ""]
-out += ["Strapping kontrolü: **IO2 (pin 16)** ve **IO8 (pin 7)** birer 10 kΩ ile +3V3'e, **IO9 (pin 8)** BOOT hattına (10 kΩ pull-up + buton) bağlı olmalı. Tablodaki `N$3` (IO2) ve `N$4` (IO8) otomatik adlı netlerdir: R8 ve R9 dirençlerinin diğer ucudur, aşağıdaki direnç tablosunda R8/R9 satırlarında pin 1 = +3V3 görmelisin.", ""]
+out += ["Strapping kontrolü: **IO2 (pin 16)** ve **IO8 (pin 7)** birer 10 kΩ ile +3V3'e, **IO9 (pin 8)** BOOT hattına (10 kΩ pull-up + buton) bağlı olmalı. Tablodaki `IO2_PU` ve `IO8_PU` netleri R8 ve R9 dirençlerinin diğer ucudur; aşağıdaki direnç tablosunda R8/R9 satırlarında pin 1 = +3V3 görmelisin.", ""]
 u2 = {"1": "VIN", "2": "GND", "3": "EN", "5": "VOUT"}
 out += ["### U2 — AP2112K-3.3 (karşılaştır: AP2112 datasheet 'Pin Descriptions', SOT25)", "", table("U2", comps, pn, u2), ""]
 out += ["### U4 — USBLC6-2SC6 (USB koruması)", "", table("U4", comps, pn, {"1": "I/O1", "2": "GND", "3": "I/O2", "4": "I/O2", "5": "VBUS", "6": "I/O1"}), ""]

@@ -4,7 +4,7 @@ firmware/build_wokwi/
 firmware/managed_components/
 pcb/.venv/
 # indirilen araclar (yeniden indirilir, bkz. README)
-pcb/tools/
+pcb/tools/*.jar
 # Wi-Fi bilgisi icerebilen, uretilen ayarlar
 firmware/sdkconfig
 firmware/sdkconfig.old
@@ -46,3 +46,4 @@ firmware/test/dht22_test
 case/out/*_with_parts.*
 case/out/shield_section.stl
 !firmware/sdkconfig.wokwi.defaults
+!firmware/sdkconfig.tdisplay.defaults

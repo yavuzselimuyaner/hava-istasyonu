@@ -32,6 +32,7 @@ j1["VBUS"] += v5; j1["GND"] += gnd; j1["SHIELD"] += gnd
 j1["D+"] += usb_dp; j1["D-"] += usb_dm
 for i, cc in enumerate(("CC1", "CC2"), 1):
     r = R("R%d" % i, "5.1k"); j1[cc] += r[1]; r[2] += gnd
+    r[1].net.name = "USB_" + cc
 u4 = Part("Power_Protection", "USBLC6-2SC6", ref="U4", tag="U4", footprint="Package_TO_SOT_SMD:SOT-23-6")
 u4[1] += usb_dp; u4[6] += usb_dp; u4[3] += usb_dm; u4[4] += usb_dm; u4[2] += gnd; u4[5] += v5
 
@@ -56,6 +57,7 @@ c = C("C4", "100nF"); c[1] += v3; c[2] += gnd
 # Strapping pull-up'lari (datasheet Tablo 3-3): IO2 (oneri), IO8 (download boot icin 1 sart)
 for ref, pin in (("R8", 16), ("R9", 7)):
     r = R(ref, "10k"); r[1] += v3; r[2] += u1[pin]
+    r[2].net.name = "IO%d_PU" % (2 if pin == 16 else 8)
 
 # EN devresi, BOOT pull-up, iki buton (RESET ve BOOT)
 r = R("R3", "10k"); r[1] += v3; r[2] += en
@@ -75,6 +77,7 @@ for ref, sig in (("R5", sda), ("R6", scl)):
 # Durum LED
 d1 = Part("Device", "LED", ref="D1", tag="D1", footprint="LED_SMD:LED_0603_1608Metric")
 r = R("R7", "1k"); led_io += r[1]; r[2] += d1["A"]; d1["K"] += gnd
+r[2].net.name = "LED_A"
 
 # Montaj delikleri (kutuya vidalamak icin)
 for ref in ("H1", "H2"):
@@ -82,4 +85,4 @@ for ref in ("H1", "H2"):
 
 if __name__ == "__main__":
     ERC()
-    generate_netlist(file_="hava.net")
+    generate_netlist(file_="hava_skidl.net")   # sematik bu dosyadan uretilir

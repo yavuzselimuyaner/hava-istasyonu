@@ -1,269 +1,763 @@
-(export 
-  (version "D")
-  (design
-    (source "gen_netlist.py")
-    (date "09/26/2026 08:30 PM")
-    (tool "SKiDL (2.3.0)")
-    (sheet
-      (number 1)
-      (name "/")
-      (tstamps "/")
-      (title_block
-        (title)
-        (company)
-        (rev)
-        (date)
-        (source "gen_netlist.py")
-        (comment
-          (number "1")
-          (value ""))
-        (comment
-          (number "2")
-          (value ""))
-        (comment
-          (number "3")
-          (value ""))
-        (comment
-          (number "4")
-          (value ""))
-        (comment
-          (number "5")
-          (value ""))
-        (comment
-          (number "6")
-          (value ""))
-        (comment
-          (number "7")
-          (value ""))
-        (comment
-          (number "8")
-          (value ""))
-        (comment
-          (number "9")
-          (value "")))))
-  (components
-    (comp
-      (ref "C1")
-      (value "100nF")
-      (description "Unpolarized capacitor")
-      (footprint "Capacitor_SMD:C_0402_1005Metric")
-      (fields
-        (field
-          (name "Description") "Unpolarized capacitor")
-        (field
-          (name "Footprint") "Capacitor_SMD:C_0402_1005Metric")
-        (field
-          (name "Datasheet"))
-        (field
-          (name "SKiDL Tag") "C1")
-        (field
-          (name "SKiDL Line") "gen_netlist.py:18"))
-      (libsource
-        (lib "Device")
-        (part "C"))
-      (sheetpath
-        (names "/")
-        (tstamps "/"))
-      (component_classes)
-      (tstamps "b514d237-c153-5f6d-afe2-53badf97a864"))
-    (comp
-      (ref "C2")
-      (value "100nF")
-      (description "Unpolarized capacitor")
-      (footprint "Capacitor_SMD:C_0402_1005Metric")
-      (fields
-        (field
-          (name "Description") "Unpolarized capacitor")
-        (field
-          (name "Footprint") "Capacitor_SMD:C_0402_1005Metric")
-        (field
-          (name "Datasheet"))
-        (field
-          (name "SKiDL Tag") "C2")
-        (field
-          (name "SKiDL Line") "gen_netlist.py:18"))
-      (libsource
-        (lib "Device")
-        (part "C"))
-      (sheetpath
-        (names "/")
-        (tstamps "/"))
-      (component_classes)
-      (tstamps "507fddd0-e494-5270-a7e4-2511aa140519"))
-    (comp
-      (ref "H1")
-      (value "MountingHole")
-      (description "Mounting Hole without connection")
-      (footprint "MountingHole:MountingHole_2.2mm_M2")
-      (fields
-        (field
-          (name "Description") "Mounting Hole without connection")
-        (field
-          (name "Footprint") "MountingHole:MountingHole_2.2mm_M2")
-        (field
-          (name "Datasheet"))
-        (field
-          (name "SKiDL Tag") "H1")
-        (field
-          (name "SKiDL Line") "gen_netlist.py:24"))
-      (libsource
-        (lib "Mechanical")
-        (part "MountingHole"))
-      (sheetpath
-        (names "/")
-        (tstamps "/"))
-      (component_classes)
-      (tstamps "4346372e-b487-58d7-bb7a-35d182fa1b2e"))
-    (comp
-      (ref "H2")
-      (value "MountingHole")
-      (description "Mounting Hole without connection")
-      (footprint "MountingHole:MountingHole_2.2mm_M2")
-      (fields
-        (field
-          (name "Description") "Mounting Hole without connection")
-        (field
-          (name "Footprint") "MountingHole:MountingHole_2.2mm_M2")
-        (field
-          (name "Datasheet"))
-        (field
-          (name "SKiDL Tag") "H2")
-        (field
-          (name "SKiDL Line") "gen_netlist.py:24"))
-      (libsource
-        (lib "Mechanical")
-        (part "MountingHole"))
-      (sheetpath
-        (names "/")
-        (tstamps "/"))
-      (component_classes)
-      (tstamps "0edb43ef-5ede-5ff4-8b77-07bb3d82b998"))
-    (comp
-      (ref "J1")
-      (value "Conn_01x04")
-      (description "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
-      (footprint "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical")
-      (fields
-        (field
-          (name "Description") "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
-        (field
-          (name "Footprint") "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical")
-        (field
-          (name "Datasheet"))
-        (field
-          (name "SKiDL Tag") "J1")
-        (field
-          (name "SKiDL Line") "gen_netlist.py:20"))
-      (libsource
-        (lib "Connector_Generic")
-        (part "Conn_01x04"))
-      (sheetpath
-        (names "/")
-        (tstamps "/"))
-      (component_classes)
-      (tstamps "d7608689-a7d2-514c-aa16-0f8bde5cf213"))
-    (comp
-      (ref "U1")
-      (value "BME280")
-      (description "3-in-1 sensor, humidity, pressure, temperature, I2C and SPI interface, 1.71-3.6V, LGA-8")
-      (footprint "Package_LGA:Bosch_LGA-8_2.5x2.5mm_P0.65mm_ClockwisePinNumbering")
-      (fields
-        (field
-          (name "Description") "3-in-1 sensor, humidity, pressure, temperature, I2C and SPI interface, 1.71-3.6V, LGA-8")
-        (field
-          (name "Footprint") "Package_LGA:Bosch_LGA-8_2.5x2.5mm_P0.65mm_ClockwisePinNumbering")
-        (field
-          (name "Datasheet") "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf")
-        (field
-          (name "SKiDL Tag") "U1")
-        (field
-          (name "SKiDL Line") "gen_netlist.py:13"))
-      (libsource
-        (lib "Sensor")
-        (part "BME280"))
-      (sheetpath
-        (names "/")
-        (tstamps "/"))
-      (component_classes)
-      (tstamps "f8fce87b-acde-5341-b554-4e93a034d648")))
-  (nets
-    (net
-      (code 1)
-      (name "+3V3")
-      (class "Default")
-      (node
-        (ref "C1")
-        (pin "1")
-        (pintype "PASSIVE"))
-      (node
-        (ref "C2")
-        (pin "1")
-        (pintype "PASSIVE"))
-      (node
-        (ref "J1")
-        (pin "1")
-        (pintype "PASSIVE"))
-      (node
-        (ref "U1")
-        (pin "2")
-        (pintype "INPUT"))
-      (node
-        (ref "U1")
-        (pin "6")
-        (pintype "POWER-IN"))
-      (node
-        (ref "U1")
-        (pin "8")
-        (pintype "POWER-IN")))
-    (net
-      (code 2)
-      (name "GND")
-      (class "Default")
-      (node
-        (ref "C1")
-        (pin "2")
-        (pintype "PASSIVE"))
-      (node
-        (ref "C2")
-        (pin "2")
-        (pintype "PASSIVE"))
-      (node
-        (ref "J1")
-        (pin "3")
-        (pintype "PASSIVE"))
-      (node
-        (ref "U1")
-        (pin "1")
-        (pintype "POWER-IN"))
-      (node
-        (ref "U1")
-        (pin "5")
-        (pintype "BIDIRECTIONAL"))
-      (node
-        (ref "U1")
-        (pin "7")
-        (pintype "POWER-IN")))
-    (net
-      (code 3)
-      (name "I2C_SCL")
-      (class "Default")
-      (node
-        (ref "J1")
-        (pin "4")
-        (pintype "PASSIVE"))
-      (node
-        (ref "U1")
-        (pin "4")
-        (pintype "INPUT")))
-    (net
-      (code 4)
-      (name "I2C_SDA")
-      (class "Default")
-      (node
-        (ref "J1")
-        (pin "2")
-        (pintype "PASSIVE"))
-      (node
-        (ref "U1")
-        (pin "3")
-        (pintype "BIDIRECTIONAL")))))
+(export
+	(version "E")
+	(design
+		(source "C:\\Users\\yavuz\\Desktop\\hava-istasyonu\\pcb\\sensor\\hava.kicad_sch")
+		(date "2026-09-28T13:58:33")
+		(tool "Eeschema 10.0.6")
+		(sheet
+			(number "1")
+			(name "/")
+			(tstamps "/")
+			(title_block
+				(title "Weather station - sensor board (BME280)")
+				(company)
+				(rev)
+				(date)
+				(source "hava.kicad_sch")
+				(comment
+					(number "1")
+					(value "J1: 1=3V3  2=SDA  3=GND  4=SCL (same order as main board J2)")
+				)
+				(comment
+					(number "2")
+					(value "I2C address 0x76 (SDO=GND); pull-up resistors are on the main board")
+				)
+				(comment
+					(number "3")
+					(value "Source: gen_netlist.py (SKiDL) -> gen_schematic.py")
+				)
+				(comment
+					(number "4")
+					(value "")
+				)
+				(comment
+					(number "5")
+					(value "")
+				)
+				(comment
+					(number "6")
+					(value "")
+				)
+				(comment
+					(number "7")
+					(value "")
+				)
+				(comment
+					(number "8")
+					(value "")
+				)
+				(comment
+					(number "9")
+					(value "")
+				)
+			)
+		)
+	)
+	(components
+		(comp
+			(ref "C1")
+			(value "100nF")
+			(footprint "Capacitor_SMD:C_0402_1005Metric")
+			(description "Unpolarized capacitor")
+			(fields
+				(field
+					(name "ki_keywords") "cap capacitor")
+				(field
+					(name "ki_fp_filters") "C_*")
+				(field
+					(name "Footprint") "Capacitor_SMD:C_0402_1005Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description") "Unpolarized capacitor")
+			)
+			(libsource
+				(lib "Device")
+				(part "C")
+				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "ki_keywords")
+				(value "cap capacitor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "C_*")
+			)
+			(property
+				(name "Sheetname")
+				(value "hava")
+			)
+			(property
+				(name "Sheetfile")
+				(value "hava.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "cap capacitor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "C_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "c232d47d-7a5d-56fc-acc7-16653472f705")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C2")
+			(value "100nF")
+			(footprint "Capacitor_SMD:C_0402_1005Metric")
+			(description "Unpolarized capacitor")
+			(fields
+				(field
+					(name "ki_keywords") "cap capacitor")
+				(field
+					(name "ki_fp_filters") "C_*")
+				(field
+					(name "Footprint") "Capacitor_SMD:C_0402_1005Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description") "Unpolarized capacitor")
+			)
+			(libsource
+				(lib "Device")
+				(part "C")
+				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "ki_keywords")
+				(value "cap capacitor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "C_*")
+			)
+			(property
+				(name "Sheetname")
+				(value "hava")
+			)
+			(property
+				(name "Sheetfile")
+				(value "hava.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "cap capacitor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "C_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "fa5c553f-d8a5-5853-ba97-68091bc7cfae")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "H1")
+			(value "MountingHole")
+			(footprint "MountingHole:MountingHole_2.2mm_M2")
+			(description "Mounting Hole without connection")
+			(fields
+				(field
+					(name "ki_keywords") "mounting hole")
+				(field
+					(name "ki_fp_filters") "MountingHole*")
+				(field
+					(name "Footprint") "MountingHole:MountingHole_2.2mm_M2")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description") "Mounting Hole without connection")
+			)
+			(libsource
+				(lib "Mechanical")
+				(part "MountingHole")
+				(description "Mounting Hole without connection")
+			)
+			(property
+				(name "ki_keywords")
+				(value "mounting hole")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "MountingHole*")
+			)
+			(property
+				(name "Sheetname")
+				(value "hava")
+			)
+			(property
+				(name "Sheetfile")
+				(value "hava.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "mounting hole")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "MountingHole*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "447313d1-f4c3-531f-9ebe-dd56eff88f6b")
+			(units
+				(unit
+					(name "A")
+					(pins)
+				)
+			)
+		)
+		(comp
+			(ref "H2")
+			(value "MountingHole")
+			(footprint "MountingHole:MountingHole_2.2mm_M2")
+			(description "Mounting Hole without connection")
+			(fields
+				(field
+					(name "ki_keywords") "mounting hole")
+				(field
+					(name "ki_fp_filters") "MountingHole*")
+				(field
+					(name "Footprint") "MountingHole:MountingHole_2.2mm_M2")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description") "Mounting Hole without connection")
+			)
+			(libsource
+				(lib "Mechanical")
+				(part "MountingHole")
+				(description "Mounting Hole without connection")
+			)
+			(property
+				(name "ki_keywords")
+				(value "mounting hole")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "MountingHole*")
+			)
+			(property
+				(name "Sheetname")
+				(value "hava")
+			)
+			(property
+				(name "Sheetfile")
+				(value "hava.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "mounting hole")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "MountingHole*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "7f577a1e-bf2a-59d6-b2eb-10d17d9db811")
+			(units
+				(unit
+					(name "A")
+					(pins)
+				)
+			)
+		)
+		(comp
+			(ref "J1")
+			(value "Conn_01x04")
+			(footprint "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical")
+			(description "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			(fields
+				(field
+					(name "ki_keywords") "connector")
+				(field
+					(name "ki_fp_filters") "Connector*:*_1x??_*")
+				(field
+					(name "Footprint") "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description") "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(libsource
+				(lib "Connector_Generic")
+				(part "Conn_01x04")
+				(description "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(property
+				(name "ki_keywords")
+				(value "connector")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Connector*:*_1x??_*")
+			)
+			(property
+				(name "Sheetname")
+				(value "hava")
+			)
+			(property
+				(name "Sheetfile")
+				(value "hava.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "connector")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Connector*:*_1x??_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "77904314-2e77-5faa-bfaa-a3153e5d671a")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "U1")
+			(value "BME280")
+			(footprint "Package_LGA:Bosch_LGA-8_2.5x2.5mm_P0.65mm_ClockwisePinNumbering")
+			(datasheet "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf")
+			(description "3-in-1 sensor, humidity, pressure, temperature, I2C and SPI interface, 1.71-3.6V, LGA-8")
+			(fields
+				(field
+					(name "ki_keywords") "Bosch pressure humidity temperature environment environmental measurement digital")
+				(field
+					(name "ki_fp_filters") "*LGA*2.5x2.5mm*P0.65mm*Clockwise*")
+				(field
+					(name "Footprint") "Package_LGA:Bosch_LGA-8_2.5x2.5mm_P0.65mm_ClockwisePinNumbering")
+				(field
+					(name "Datasheet") "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf")
+				(field
+					(name "Description") "3-in-1 sensor, humidity, pressure, temperature, I2C and SPI interface, 1.71-3.6V, LGA-8")
+			)
+			(libsource
+				(lib "Sensor")
+				(part "BME280")
+				(description "3-in-1 sensor, humidity, pressure, temperature, I2C and SPI interface, 1.71-3.6V, LGA-8")
+			)
+			(property
+				(name "ki_keywords")
+				(value "Bosch pressure humidity temperature environment environmental measurement digital")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "*LGA*2.5x2.5mm*P0.65mm*Clockwise*")
+			)
+			(property
+				(name "Sheetname")
+				(value "hava")
+			)
+			(property
+				(name "Sheetfile")
+				(value "hava.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "Bosch pressure humidity temperature environment environmental measurement digital")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "*LGA*2.5x2.5mm*P0.65mm*Clockwise*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "53205955-f309-5782-a1ca-1be22b9bdae7")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "8")
+						)
+						(pin
+							(num "7")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+	)
+	(groups)
+	(variants)
+	(libparts
+		(libpart
+			(lib "Connector_Generic")
+			(part "Conn_01x04")
+			(description "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			(footprints
+				(fp "Connector*:*_1x??_*")
+			)
+			(fields
+				(field
+					(name "Reference") "J")
+				(field
+					(name "Value") "Conn_01x04")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description") "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "Pin_1")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "Pin_2")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "Pin_3")
+					(type "passive")
+				)
+				(pin
+					(num "4")
+					(name "Pin_4")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "Device")
+			(part "C")
+			(description "Unpolarized capacitor")
+			(footprints
+				(fp "C_*")
+			)
+			(fields
+				(field
+					(name "Reference") "C")
+				(field
+					(name "Value") "C")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description") "Unpolarized capacitor")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "Mechanical")
+			(part "MountingHole")
+			(description "Mounting Hole without connection")
+			(footprints
+				(fp "MountingHole*")
+			)
+			(fields
+				(field
+					(name "Reference") "H")
+				(field
+					(name "Value") "MountingHole")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description") "Mounting Hole without connection")
+			)
+		)
+		(libpart
+			(lib "Sensor")
+			(part "BME280")
+			(description "3-in-1 sensor, humidity, pressure, temperature, I2C and SPI interface, 1.71-3.6V, LGA-8")
+			(docs "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf")
+			(footprints
+				(fp "*LGA*2.5x2.5mm*P0.65mm*Clockwise*")
+			)
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "BME280")
+				(field
+					(name "Footprint") "Package_LGA:Bosch_LGA-8_2.5x2.5mm_P0.65mm_ClockwisePinNumbering")
+				(field
+					(name "Datasheet") "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf")
+				(field
+					(name "Description") "3-in-1 sensor, humidity, pressure, temperature, I2C and SPI interface, 1.71-3.6V, LGA-8")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "2")
+					(name "CSB")
+					(type "input")
+				)
+				(pin
+					(num "3")
+					(name "SDI")
+					(type "bidirectional")
+				)
+				(pin
+					(num "4")
+					(name "SCK")
+					(type "input")
+				)
+				(pin
+					(num "5")
+					(name "SDO")
+					(type "bidirectional")
+				)
+				(pin
+					(num "6")
+					(name "VDDIO")
+					(type "power_in")
+				)
+				(pin
+					(num "7")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "8")
+					(name "VDD")
+					(type "power_in")
+				)
+			)
+		)
+	)
+	(libraries
+		(library
+			(logical "Connector_Generic")
+			(uri "${KICAD10_SYMBOL_DIR}/Connector_Generic.kicad_sym")
+		)
+		(library
+			(logical "Device")
+			(uri "${KICAD10_SYMBOL_DIR}/Device.kicad_sym")
+		)
+		(library
+			(logical "Mechanical")
+			(uri "${KICAD10_SYMBOL_DIR}/Mechanical.kicad_sym")
+		)
+		(library
+			(logical "Sensor")
+			(uri "${KICAD10_SYMBOL_DIR}/Sensor.kicad_sym")
+		)
+	)
+	(nets
+		(net
+			(code "1")
+			(name "+3V3")
+			(class "Default")
+			(node
+				(ref "C1")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C2")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "J1")
+				(pin "1")
+				(pinfunction "Pin_1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "2")
+				(pinfunction "CSB_2")
+				(pintype "input")
+			)
+			(node
+				(ref "U1")
+				(pin "6")
+				(pinfunction "VDDIO_6")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U1")
+				(pin "8")
+				(pinfunction "VDD_8")
+				(pintype "power_in")
+			)
+		)
+		(net
+			(code "2")
+			(name "/I2C_SCL")
+			(class "Default")
+			(node
+				(ref "J1")
+				(pin "4")
+				(pinfunction "Pin_4_4")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "4")
+				(pinfunction "SCK_4")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "3")
+			(name "/I2C_SDA")
+			(class "Default")
+			(node
+				(ref "J1")
+				(pin "2")
+				(pinfunction "Pin_2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "3")
+				(pinfunction "SDI_3")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "4")
+			(name "GND")
+			(class "Default")
+			(node
+				(ref "C1")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C2")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "J1")
+				(pin "3")
+				(pinfunction "Pin_3_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "1")
+				(pinfunction "GND_1")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U1")
+				(pin "5")
+				(pinfunction "SDO_5")
+				(pintype "bidirectional")
+			)
+			(node
+				(ref "U1")
+				(pin "7")
+				(pinfunction "GND_7")
+				(pintype "power_in")
+			)
+		)
+	)
+)

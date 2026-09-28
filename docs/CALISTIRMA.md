@@ -3,11 +3,21 @@
 Gerekenler: KiCad 10 (`C:\Program Files\KiCad\10.0`), FreeCAD 1.1, Java 21, ESP-IDF v6.0.2, Python (SKiDL için `pcb/.venv`). Freerouting **v2.1.0** (Java 21 ile çalışan sürüm) `pcb/tools/` içinde olmalı (indirilmez, depoda yok).
 
 ## Kartlar (`pcb/main` veya `pcb/sensor` içinde)
+Akış: SKiDL devre tanımı → **KiCad şematiği** → şematikten netlist → PCB yerleşimi → yol çizimi.
 ```
 ..\.venv\Scripts\python.exe gen_netlist.py
+sh ../tools/check.sh .
 "C:\Program Files\KiCad\10.0\bin\python.exe" build_board.py
 "C:\Program Files\KiCad\10.0\bin\python.exe" route.py
+"C:\Program Files\KiCad\10.0\bin\kicad-cli.exe" pcb drc --severity-error --schematic-parity -o drc_routed.rpt hava_routed.kicad_pcb
 ```
+1. `gen_netlist.py`: devre tanımı (SKiDL) → `hava_skidl.net`.
+2. `tools/check.sh` (Git Bash ile): `gen_schematic.py` ile `hava.kicad_sch` şematiğini üretir, KiCad ERC'sini çalıştırır (hata varsa durur), şematikten `hava.net` netlistini alır, bunun SKiDL netlistiyle bağlantı olarak birebir aynı olduğunu `tools/net_compare.py` ile doğrular ve `hava_sematik.pdf` çıktısını verir.
+3. `build_board.py`: PCB'yi şematikten gelen `hava.net`'ten kurar; her footprint şematikteki sembolüne bağlanır.
+4. `route.py`: Freerouting ile yollar → `hava_routed.kicad_pcb`.
+5. DRC: `--schematic-parity` şematik ile kartın uyuştuğunu da kontrol eder.
+
+Şematik KiCad'de `hava.kicad_pro` açılarak görülebilir. Sensör kartındaki tek ERC uyarısı beklenen bir durumdur: BME280'in SDO bacağı I2C adresini 0x76 yapmak için GND'ye bağlı; kütüphane bu bacağı "çift yönlü" tanımladığı için KiCad, GND'deki güç işaretiyle birlikte uyarı verir.
 Freerouting deterministik değildir; sonuç her seferinde biraz farklı çıkar. Denemeden önce çalışan `hava_routed.kicad_pcb` dosyasını Git'e kaydet.
 
 Pin tablosu (datasheet karşılaştırması için): `python pcb/pin_tablosu.py` çalıştırılınca `docs/tasarim/03-pin-tablosu.md` yeniden üretilir.

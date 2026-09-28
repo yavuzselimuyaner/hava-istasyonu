@@ -1,6 +1,7 @@
 """KiCad'in kendi Python'u ile çalıştır:
   "C:\\Program Files\\KiCad\\10.0\\bin\\python.exe" build_board.py
 hava.net -> hava.kicad_pcb (footprint yerleşimi + net atamaları + kart sınırı)
+hava.net şematikten (hava.kicad_sch) kicad-cli ile alınır: tools/check.sh
 """
 import os
 import re
@@ -52,7 +53,8 @@ tree = parse_sexpr(open(os.path.join(HERE, "hava.net"), encoding="utf8").read())
 comps = {}
 for c in find_all(find(tree, "components"), "comp"):
     ref = find(c, "ref")[1]
-    comps[ref] = dict(value=find(c, "value")[1], footprint=find(c, "footprint")[1])
+    comps[ref] = dict(value=find(c, "value")[1], footprint=find(c, "footprint")[1],
+                      uuid=find(c, "tstamps")[1])   # şematikteki sembolün kimliği
 nets = {}
 for n in find_all(find(tree, "nets"), "net"):
     name = find(n, "name")[1]
@@ -88,6 +90,9 @@ for ref, info in comps.items():
         raise SystemExit("footprint yok: " + info["footprint"])
     fp.SetReference(ref)
     fp.SetValue(info["value"])
+    fp.SetPath(pcbnew.KIID_PATH("/" + info["uuid"]))   # footprint -> şematik sembolü
+    fp.SetSheetname("/")
+    fp.SetSheetfile("hava.kicad_sch")
     x, y, rot = PLACE[ref]
     fp.SetPosition(vec(x, y))
     fp.SetOrientationDegrees(rot)

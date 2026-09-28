@@ -25,4 +25,4 @@ for ref in ("H1", "H2"):
 
 if __name__ == "__main__":
     ERC()
-    generate_netlist(file_="hava.net")
+    generate_netlist(file_="hava_skidl.net")   # sematik bu dosyadan uretilir
