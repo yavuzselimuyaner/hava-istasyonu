@@ -33,6 +33,16 @@ idf.py -B build_wokwi -D "SDKCONFIG=sdkconfig.wokwi" -D "IDF_TARGET=esp32s3" -D 
 ```
 Wi-Fi bilgileri: `idf.py menuconfig` → "Hava Sensor Dugumu" (bilgiler Git'e girmez). Wokwi için `firmware` klasörünü VS Code'da aç, "Wokwi: Start Simulator".
 
+### T-Display-S3'e (gerçek donanım) yükleme
+```
+idf.py -B build_tdisplay -D "SDKCONFIG=sdkconfig.tdisplay" -D "IDF_TARGET=esp32s3" -D "SDKCONFIG_DEFAULTS=sdkconfig.defaults;sdkconfig.defaults.esp32s3;sdkconfig.tdisplay.defaults" menuconfig
+```
+Menüde Wi-Fi SSID/şifresini gir (bilgiler Git'e girmez), sonra:
+```
+idf.py -B build_tdisplay flash monitor
+```
+DHT22 verisi GPIO10'a, VCC 3V3'e, GND GND'ye bağlanır (SDA-VCC arası 10 kΩ pull-up önerilir). Kartın dahili ekranı (ST7789) otomatik devreye girer; sıcaklık, nem ve varsa basınç üç satır olarak gösterilir.
+
 ## Web
 `web/index.html`'i tarayıcıda aç (MQTT.js CDN'den yüklenir). Yerel sunucu ile: `cd web && python -m http.server`.
 

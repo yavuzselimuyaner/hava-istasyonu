@@ -1,0 +1,3 @@
+# T-Display-S3 gercek donanim: DHT22 ve GPIO10 sdkconfig.defaults.esp32s3'ten geliyor;
+# burada yalnizca dahili ekran (ST7789) aciliyor. Wi-Fi bilgileri Git'e girmez, idf.py menuconfig ile girilir.
+CONFIG_DISPLAY_ST7789=y

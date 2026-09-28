@@ -18,6 +18,7 @@
 #else
 #include "dht22.h"
 #endif
+#include "display.h"
 
 static const char *TAG = "hava";
 static EventGroupHandle_t s_events;
@@ -93,6 +94,7 @@ void app_main(void)
     esp_err_t r = nvs_flash_init();
     if (r == ESP_ERR_NVS_NO_FREE_PAGES || r == ESP_ERR_NVS_NEW_VERSION_FOUND) { ESP_ERROR_CHECK(nvs_flash_erase()); r = nvs_flash_init(); }
     ESP_ERROR_CHECK(r);
+    display_init();     /* CONFIG_DISPLAY_ST7789 kapaliyken zararsizca hicbir sey yapmaz */
     wifi_start();
 
     esp_mqtt_client_config_t mc = {
@@ -113,6 +115,7 @@ void app_main(void)
             if (m.has_p) snprintf(js, sizeof(js), "{\"t\":%.2f,\"h\":%.1f,\"p\":%.1f}", m.t, m.h, m.p);
             else         snprintf(js, sizeof(js), "{\"t\":%.2f,\"h\":%.1f}", m.t, m.h);
             ESP_LOGI(TAG, "olcum: %s", js);
+            display_show(m.t, m.h, m.p, m.has_p);
             if (s_mqtt_up) esp_mqtt_client_publish(client, CONFIG_MQTT_TOPIC, js, 0, 1, 1);   /* QoS1, retain: sayfa acilinca son degeri gorur */
             else ESP_LOGW(TAG, "MQTT bagli degil, yayin atlandi");
         }

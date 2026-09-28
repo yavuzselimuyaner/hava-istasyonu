@@ -37,4 +37,10 @@ menu "Hava Sensor Dugumu"
     config I2C_SCL
         int "I2C SCL pini (BME280)"
         default 5
+    config DISPLAY_ST7789
+        bool "T-Display-S3 dahili ekranini kullan (ST7789, paralel i80)"
+        default n
+        help
+            Ana kartta (ESP32-C3) ekran yok; bu yalnizca T-Display-S3 gelistirme kartinda
+            calisir. Olcumu 3 satir (sicaklik, nem, varsa basinc) olarak ekrana yazar.
 endmenu
